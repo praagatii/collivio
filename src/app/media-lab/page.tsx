@@ -13,15 +13,13 @@ export default function MediaLabPage() {
       trailing="happening."
       blurb={
         <>
-          a feed of projects, events, collaborations, opportunities and activity
-          happening across COLLivio. See who&apos;s building what — and get in on
-          it.
+          A discovery feed of projects, events, collaborations, opportunities
+          and activity happening across COLLivio. See who&apos;s building what —
+          and get in on it.
           <br />
           This space is being built right now.
         </>
       }
-      ctaLabel="Back to COLLivio"
-      ctaHref="/"
     />
   );
 }

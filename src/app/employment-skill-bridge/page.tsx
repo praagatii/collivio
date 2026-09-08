@@ -20,8 +20,6 @@ export default function EmploymentSkillBridgePage() {
           This space is being built right now.
         </>
       }
-      ctaLabel="Back to COLLivio"
-      ctaHref="/"
     />
   );
 }

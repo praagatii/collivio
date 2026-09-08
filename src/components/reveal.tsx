@@ -3,18 +3,12 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type RevealProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   delay?: number;
-  as?: "div" | "span";
 };
 
-export default function Reveal({
-  children,
-  className = "",
-  delay = 0,
-  as = "div",
-}: RevealProps) {
+export default function Reveal({ children, className = "", delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -36,24 +30,22 @@ export default function Reveal({
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
     );
 
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  const Tag = as;
-
   return (
-    <Tag
+    <div
       ref={ref}
-      className={`transition-all duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`transition-all duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
         visible ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
-    </Tag>
+    </div>
   );
 }

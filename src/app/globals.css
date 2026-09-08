@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f4f0e7;
-  --ink: #1c1a16;
-  --ink-soft: #6e6a61;
-  --line: #d5d0c3;
-  --accent: #c3501f;
+  --canvas: #f7f1ed;
+  --ink: #242424;
+  --ink-soft: #636363;
+  --line: #acacac;
+  --accent: #ffe862;
+  --blue: #37ace8;
 }
 
 @theme inline {
@@ -14,16 +15,18 @@
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-blue: var(--blue);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-anton);
-  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-manrope);
 }
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none;
 }
 
 body {
+  overflow-x: clip;
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-inter);
@@ -33,36 +36,49 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: var(--canvas);
+  color: var(--ink);
 }
 
 @layer components {
-  .label-mono {
-    font-family: var(--font-space-mono);
-    font-size: 0.6875rem;
-    line-height: 1.4;
-    letter-spacing: 0.16em;
+  .label {
+    font-family: var(--font-inter);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
   }
 
-  .rule {
-    height: 1px;
-    background: var(--line);
+  .disp {
+    font-family: var(--font-manrope);
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
-  .hero-mask {
+  .mask-box {
+    display: inline-block;
     overflow: hidden;
-    display: block;
+    vertical-align: bottom;
   }
 
-  .hero-line {
-    display: block;
-    transform: translateY(112%);
+  .mask-inner {
+    display: inline-block;
+    transform: translateY(115%);
+    transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .hero-line-on {
+  .mask-inner.is-up {
     transform: translateY(0);
-    transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rule-in {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .rule-in.is-in {
+    transform: scaleX(1);
   }
 
   .link-line {
@@ -83,9 +99,18 @@ body {
     transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .link-line:hover::after {
+  .link-line:hover::after,
+  .group:hover .link-line::after {
     transform: scaleX(1);
     transform-origin: left center;
+  }
+}
+
+@media (pointer: fine) {
+  .cursor-none a,
+  .cursor-none button,
+  .cursor-none [data-cur] {
+    cursor: none;
   }
 }
 
@@ -93,9 +118,12 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .hero-line,
-  .hero-line-on {
+  .mask-inner,
+  .mask-inner.is-up {
     transform: none;
-    transition: none;
+  }
+  .rule-in,
+  .rule-in.is-in {
+    transform: scaleX(1);
   }
 }

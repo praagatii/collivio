@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Anton, Inter, Space_Mono } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
+import SiteFrame from "@/components/site-frame";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,15 +8,8 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  weight: "400",
-  variable: "--font-anton",
-  subsets: ["latin"],
-});
-
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -29,9 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${anton.variable} ${spaceMono.variable}`}
+      className={`${inter.variable} ${manrope.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <SiteFrame />
+        {children}
+      </body>
     </html>
   );
 }
