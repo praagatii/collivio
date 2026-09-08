@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --canvas: #f4f0e7;
+  --ink: #1c1a16;
+  --ink-soft: #6e6a61;
+  --line: #d5d0c3;
+  --accent: #c3501f;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-anton);
+  --font-mono: var(--font-space-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--canvas);
+}
+
+@layer components {
+  .label-mono {
+    font-family: var(--font-space-mono);
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--line);
+  }
+
+  .hero-mask {
+    overflow: hidden;
+    display: block;
+  }
+
+  .hero-line {
+    display: block;
+    transform: translateY(112%);
+  }
+
+  .hero-line-on {
+    transform: translateY(0);
+    transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .link-line {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-line:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-line,
+  .hero-line-on {
+    transform: none;
+    transition: none;
+  }
+}
