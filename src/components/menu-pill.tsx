@@ -26,7 +26,7 @@ export default function MenuPill() {
         type="button"
         onClick={() => setOpen(true)}
         onMouseOver={(e) => e.stopPropagation()}
-        className="group fixed bottom-6 left-1/2 z-[120] flex -translate-x-1/2 items-center gap-4 rounded-full border border-ink/50 bg-canvas/70 px-6 py-3 backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-ink hover:bg-accent md:bottom-10"
+        className="group fixed left-1/2 z-[120] flex -translate-x-1/2 items-center gap-4 rounded-full border border-ink/50 bg-canvas/70 px-6 py-3 backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-ink hover:bg-accent bottom-[calc(1.5rem+env(safe-area-inset-bottom))] md:bottom-[calc(2.5rem+env(safe-area-inset-bottom))]"
         aria-label="Open menu"
       >
         <span className="label text-sm font-semibold leading-none">Menu</span>

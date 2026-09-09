@@ -9,6 +9,8 @@ type MaskedLineProps = {
   stagger?: number;
   auto?: boolean;
   trigger?: boolean;
+  highlightUnit?: number;
+  accentUnit?: number;
 };
 
 export default function MaskedLine({
@@ -18,6 +20,8 @@ export default function MaskedLine({
   stagger = 55,
   auto = true,
   trigger = false,
+  highlightUnit,
+  accentUnit,
 }: MaskedLineProps) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const [autoUp, setAutoUp] = useState(false);
@@ -27,25 +31,39 @@ export default function MaskedLine({
     const el = ref.current;
     if (!el) return;
 
+    const release = () => setAutoUp(true);
+    let nearViewportSafety: ReturnType<typeof setTimeout> | undefined;
+
     if (!("IntersectionObserver" in window)) {
-      const t = setTimeout(() => setAutoUp(true), delay + 100);
-      return () => clearTimeout(t);
+      const t = setTimeout(release, delay + 120);
+      return () => {
+        clearTimeout(t);
+        clearTimeout(nearViewportSafety);
+      };
+    }
+
+    const near = el.getBoundingClientRect().top < window.innerHeight * 1.15;
+    if (near) {
+      nearViewportSafety = setTimeout(release, 2800);
     }
 
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setAutoUp(true);
+            release();
             io.disconnect();
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      clearTimeout(nearViewportSafety);
+    };
   }, [auto, delay]);
 
   const up = auto ? autoUp : trigger;
@@ -53,19 +71,34 @@ export default function MaskedLine({
 
   return (
     <span ref={ref} className={className} aria-label={text} role="text">
-      {units.map((unit, i) => (
-        <Fragment key={`${unit}-${i}`}>
-          <span className="mask-box">
-            <span
-              className={`mask-inner ${up ? "is-up" : ""}`}
-              style={{ transitionDelay: `${delay + i * stagger}ms` }}
-            >
-              {unit}
+      {units.map((unit, i) => {
+        const highlighted = i === highlightUnit;
+        const accented = i === accentUnit;
+        return (
+          <Fragment key={`${unit}-${i}`}>
+            <span className="mask-box">
+              <span
+                className={`mask-inner ${up ? "is-up" : ""} ${
+                  accented ? "text-blue" : ""
+                }`}
+                style={{ transitionDelay: `${delay + i * stagger}ms` }}
+              >
+                {highlighted ? (
+                  <span
+                    className="inline-block bg-accent px-2 pb-0.5 pt-0 text-ink md:px-3"
+                    style={{ boxDecorationBreak: "clone" }}
+                  >
+                    {unit}
+                  </span>
+                ) : (
+                  unit
+                )}
+              </span>
             </span>
-          </span>
-          {i < units.length - 1 ? " " : ""}
-        </Fragment>
-      ))}
+            {i < units.length - 1 ? " " : ""}
+          </Fragment>
+        );
+      })}
     </span>
   );
 }

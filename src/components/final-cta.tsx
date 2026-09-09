@@ -10,7 +10,7 @@ export default function FinalCta() {
         ))}
       </div>
 
-      <div className="relative mx-auto w-full max-w-[1200px] px-6 pb-12 pt-16 md:px-0 md:pb-16 md:pt-28">
+      <div className="relative mx-auto w-full max-w-[1200px] px-6 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-16 md:px-0 md:pb-[calc(4rem+env(safe-area-inset-bottom))] md:pt-28">
         <div
           aria-hidden
           className="disp pointer-events-none absolute inset-x-0 top-16 text-center text-[clamp(6rem,24vw,20rem)] font-extrabold leading-none text-ink/10 md:top-14"

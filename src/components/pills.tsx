@@ -10,9 +10,13 @@ export default function Pills() {
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-5">
           {pills.map((pill, i) => (
             <Reveal key={pill} delay={i * 130}>
-              <span className="disp block rounded-full bg-ink px-6 py-3 text-lg font-extrabold tracking-[-0.02em] text-canvas md:px-8 md:py-3.5 md:text-2xl">
-                {pill}
-              </span>
+<span
+  className={`disp block rounded-full px-6 py-3 text-lg font-extrabold tracking-[-0.02em] md:px-8 md:py-3.5 md:text-2xl ${
+    i === 1 ? "bg-accent text-ink" : "bg-ink text-canvas"
+  }`}
+>
+  {pill}
+</span>
             </Reveal>
           ))}
         </div>

@@ -71,6 +71,7 @@ export default function Hero() {
             auto={false}
             trigger={on}
             delay={900}
+            highlightUnit={0}
             className="block text-[clamp(3rem,14.5vw,12.5rem)]"
           />
         </h1>
@@ -88,14 +89,12 @@ export default function Hero() {
 
           <a
             href="#how-it-works"
-            className={`label group inline-flex items-center gap-4 font-semibold transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`label group inline-flex items-center gap-4 rounded-full bg-accent px-7 py-3.5 font-semibold transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-ink hover:text-accent ${
               on ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
             }`}
             style={{ transitionDelay: "1450ms" }}
           >
-            <span className="link-line group-hover:after:scale-x-100 group-hover:after:origin-left">
-              Explore COLLivio
-            </span>
+            Explore COLLivio
             <span className="text-lg leading-none transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
               →
             </span>

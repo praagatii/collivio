@@ -63,11 +63,16 @@ body {
 
   .mask-inner {
     display: inline-block;
-    transform: translateY(115%);
+    transform: none;
     transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .mask-inner.is-up {
+  .js .mask-inner {
+    transform: translateY(115%);
+  }
+
+  .mask-inner.is-up,
+  .js .mask-inner.is-up {
     transform: translateY(0);
   }
 
@@ -119,11 +124,18 @@ body {
     scroll-behavior: auto;
   }
   .mask-inner,
-  .mask-inner.is-up {
+  .js .mask-inner,
+  .mask-inner.is-up,
+  .js .mask-inner.is-up {
     transform: none;
   }
   .rule-in,
   .rule-in.is-in {
+    transform: scaleX(1);
+  }
+  .js .link-line::after,
+  .link-line:hover::after,
+  .group:hover .link-line::after {
     transform: scaleX(1);
   }
 }

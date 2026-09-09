@@ -12,6 +12,7 @@ export default function Statement() {
         <MaskedLine
           text="Building for real."
           delay={180}
+          highlightUnit={2}
           className="disp block text-[clamp(2.4rem,6.5vw,6.5rem)] font-extrabold"
         />
         <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-12">
