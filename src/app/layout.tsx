@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
-import SiteFrame from "@/components/site-frame";
+import { Providers } from "@/components/providers";
+import Nav, { Footer } from "@/components/nav";
+import { AnimatedRoutes, TransitionBar } from "@/components/transition";
+import Cursor from "@/components/cursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,32 +17,34 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "COLLivio — Think it. Drop it. Build it.",
+  title: "COLLIVIO — Think it. Drop it. Build it.",
   description:
-    "COLLivio is a space for young people to build real projects, find real opportunities, and create work that speaks for itself.",
+    "COLLIVIO is a discovery platform for young people to find real projects, real research, and real people to build with.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f7f1ed",
+  themeColor: "#f6f1e8",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${manrope.variable}`}
-    >
+    <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
       <body>
         <script
           dangerouslySetInnerHTML={{
             __html: "document.documentElement.className += ' js';",
           }}
         />
-        <SiteFrame />
-        {children}
+        <Providers>
+          <Nav />
+          <AnimatedRoutes>{children}</AnimatedRoutes>
+          <Footer />
+          <TransitionBar />
+          <Cursor />
+        </Providers>
       </body>
     </html>
   );

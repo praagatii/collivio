@@ -1,20 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f7f1ed;
-  --ink: #242424;
-  --ink-soft: #636363;
-  --line: #acacac;
-  --accent: #ffe862;
-  --blue: #37ace8;
+  --canvas: #f6f1e8;
+  --paper: #fffdf7;
+  --ink: #262019;
+  --ink-soft: #6e675c;
+  --line: #dcd2bf;
+  --accent: #7c2d3b;
+  --accent-soft: #f3e3dd;
+  --tan: #e8dcc6;
+  --deep: #1e1a13;
+  --blue: #3e7cb1;
 }
 
 @theme inline {
   --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-tan: var(--tan);
+  --color-deep: var(--deep);
   --color-blue: var(--blue);
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
@@ -36,7 +44,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--paper);
 }
 
 @layer components {
@@ -108,6 +116,22 @@ body {
   .group:hover .link-line::after {
     transform: scaleX(1);
     transform-origin: left center;
+  }
+
+  .scrub-x::-webkit-scrollbar {
+    display: none;
+  }
+  .scrub-x {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .masonry {
+    column-gap: 1.25rem;
+  }
+  .masonry > * {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
   }
 }
 
