@@ -1,8 +1,14 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+
+const clamp = (n: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, n));
+
+const MotionLink = motion.create(Link);
 
 export function Avatar({
   src,
@@ -34,7 +40,7 @@ export function Badge({
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "line" | "accent" | "soft" | "paper" | "tan" | "deep";
+  tone?: "line" | "accent" | "soft" | "paper" | "tan" | "deep" | "lemon" | "sky" | "mint" | "coral" | "grape";
   className?: string;
 }) {
   const tones: Record<string, string> = {
@@ -44,6 +50,11 @@ export function Badge({
     paper: "border-paper bg-paper text-ink",
     tan: "border-tan bg-tan/70 text-ink",
     deep: "border-deep bg-deep text-canvas",
+    lemon: "border-lemon bg-lemon text-ink",
+    sky: "border-sky bg-sky text-ink",
+    mint: "border-mint bg-mint text-ink",
+    coral: "border-coral bg-coral text-ink",
+    grape: "border-grape bg-grape text-ink",
   };
   return (
     <span
@@ -175,6 +186,219 @@ export function SectionHeader({
         <div className="pb-1">{right}</div>
       ) : null}
     </div>
+  );
+}
+
+export function CountUp({
+  value,
+  suffix = "",
+  className = "",
+}: {
+  value: number;
+  suffix?: string;
+  className?: string;
+}) {
+  const [v, setV] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const dur = 1100;
+      const tick = (t: number) => {
+        const p = Math.min(1, (t - start) / dur);
+        setV(Math.round(value * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [value]);
+  return (
+    <span ref={ref} className={className}>
+      {v >= 1000 ? v.toLocaleString("en-US") : v}
+      {suffix}
+    </span>
+  );
+}
+
+export function SquashButton({
+  href,
+  onClick,
+  text,
+  variant = "deep",
+  className = "",
+  arrow = true,
+  type = "button",
+}: {
+  href?: string;
+  onClick?: () => void;
+  text: string;
+  variant?: "deep" | "accent" | "lemon";
+  className?: string;
+  arrow?: boolean;
+  type?: "button" | "submit";
+}) {
+  const [hover, setHover] = useState(false);
+  const variants: Record<string, string> = {
+    deep: "bg-deep text-canvas hover:bg-ink",
+    accent: "bg-accent text-canvas hover:bg-deep",
+    lemon: "bg-lemon text-ink hover:bg-accent hover:text-canvas",
+  };
+  const chars = text.split("");
+  const cls = `inline-flex items-center justify-center overflow-hidden px-7 py-4 label ${variants[variant]} ${className}`;
+  const inner = (
+    <span className="inline-flex items-center">
+      {chars.map((c, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          animate={hover ? { y: [0, 8, 0], scaleY: [1, 0.16, 1] } : { y: 0, scaleY: 1 }}
+          transition={
+            hover
+              ? { duration: 0.55, ease: "easeInOut", times: [0, 0.3, 1], delay: i * 0.022 }
+              : { duration: 0.25, ease: "easeOut" }
+          }
+        >
+          {c === " " ? "\u00A0" : c}
+        </motion.span>
+      ))}
+      {arrow && (
+        <motion.span
+          animate={hover ? { x: 3, y: -3 } : { x: 0, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="ml-2 inline-block"
+        >
+          <ArrowUpRight size={15} strokeWidth={2.1} />
+        </motion.span>
+      )}
+    </span>
+  );
+  const tap = { scale: 0.96 };
+  if (href) {
+    return (
+      <MotionLink
+        href={href}
+        data-cur
+        onClick={onClick}
+        onHoverStart={() => setHover(true)}
+        onHoverEnd={() => setHover(false)}
+        whileTap={tap}
+        className={cls}
+      >
+        {inner}
+      </MotionLink>
+    );
+  }
+  return (
+    <motion.button
+      type={type}
+      data-cur
+      onClick={onClick}
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
+      whileTap={tap}
+      className={cls}
+    >
+      {inner}
+    </motion.button>
+  );
+}
+
+export function PopIn({
+  children,
+  className = "",
+  rotate = 10,
+  y = -18,
+  scaleFrom = 0.5,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  rotate?: number;
+  y?: number;
+  scaleFrom?: number;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: scaleFrom, y, rotate: -rotate }}
+      whileInView={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+      viewport={{ once: true, margin: "-24px" }}
+      transition={{ type: "spring", stiffness: 300, damping: 15, mass: 0.85, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function Scribble({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 210 26" className={className} fill="none" aria-hidden>
+      <motion.path
+        d="M3 17 C 24 2 48 24 70 13 C 92 4 112 24 133 13 C 152 4 172 22 207 12"
+        stroke="var(--lemon)"
+        strokeWidth={4}
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: [0, 1, 1, 0], opacity: [0, 1, 1, 0] }}
+        transition={{ duration: 5.5, times: [0, 0.45, 0.6, 1], ease: "easeInOut", repeat: Infinity }}
+      />
+    </svg>
+  );
+}
+
+export function Skate({
+  children,
+  className = "",
+  rest = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  rest?: number;
+}) {
+  const controls = useAnimation();
+  const vel = useRef({ x: 0, y: 0 });
+  const last = useRef({ x: 0, y: 0 });
+  useEffect(() => {
+    last.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const onMove = (e: PointerEvent) => {
+      vel.current = { x: e.clientX - last.current.x, y: e.clientY - last.current.y };
+      last.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("pointermove", onMove);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
+  const onEnter = () => {
+    const { x, y } = vel.current;
+    const rot = clamp((x - y) * 2.2, -16, 16) + rest;
+    controls.start({
+      x: clamp(x * 14, -90, 90),
+      y: clamp(y * 14, -90, 90),
+      rotate: rot,
+      transition: { type: "spring", stiffness: 400, damping: 26 },
+    });
+    controls.start({
+      x: 0,
+      y: 0,
+      rotate: rest,
+      transition: { type: "spring", stiffness: 60, damping: 12, delay: 0.28 },
+    });
+  };
+  return (
+    <motion.div
+      animate={controls}
+      onMouseEnter={onEnter}
+      style={{ rotate: rest }}
+      className={`inline-block ${className}`}
+    >
+      {children}
+    </motion.div>
   );
 }
 

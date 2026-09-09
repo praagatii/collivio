@@ -7,6 +7,20 @@ import type { Project, Research, Student, FeedPost } from "@/data/mock";
 import { useNav } from "@/components/providers";
 import { Avatar, Badge, VerifiedIcon } from "@/components/primitives";
 
+const HUES: Record<string, string> = {
+  lemon: "bg-lemon text-ink",
+  sky: "bg-sky text-ink",
+  mint: "bg-mint text-ink",
+  coral: "bg-coral text-ink",
+  grape: "bg-grape text-ink",
+};
+const HUE_SEQ = ["lemon", "sky", "mint", "coral", "grape"];
+const hueFor = (id: string) => {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  return HUE_SEQ[h % HUE_SEQ.length];
+};
+
 export function ProjectCard({
   project,
   variant = "row",
@@ -43,7 +57,7 @@ export function ProjectCard({
             />
             <div className="absolute left-3 top-3 flex gap-2">
               <Badge tone="paper">{project.category}</Badge>
-              <Badge tone="accent">{project.amount}</Badge>
+              <Badge tone="lemon">{project.amount}</Badge>
             </div>
           </div>
           <div className="mt-4 flex items-center justify-between gap-3">
@@ -78,7 +92,7 @@ export function ProjectCard({
               loading={eager ? "eager" : "lazy"}
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
             />
-            <span className="absolute bottom-3 left-3 grid h-9 w-9 place-items-center rounded-full bg-canvas text-ink transition-all duration-300 group-hover:bg-accent group-hover:text-canvas">
+            <span className={`absolute bottom-3 left-3 grid h-9 w-9 place-items-center rounded-full ${HUES[hueFor(project.id)]} transition-all duration-300 group-hover:bg-ink group-hover:text-canvas`}>
               <ArrowUpRight size={16} />
             </span>
           </div>
@@ -217,11 +231,11 @@ export function ResearchCard({
                 ))}
               </div>
               <div className="flex items-center gap-3">
-                <Badge tone={item.open ? "soft" : "line"}>
-                  <Users size={11} />
-                  {item.open ? `${item.spotsOpen} SPOTS OPEN` : "TEAM COMPLETE"}
-                </Badge>
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-canvas transition-colors duration-300 group-hover:bg-accent">
+                <Badge tone={item.open ? "lemon" : "line"}>
+                <Users size={11} />
+                {item.open ? `${item.spotsOpen} SPOTS OPEN` : "TEAM COMPLETE"}
+              </Badge>
+                <span className={`grid h-10 w-10 place-items-center rounded-full ${HUES[hueFor(item.id)]} transition-colors duration-300 group-hover:bg-deep`}>
                   <ArrowUpRight size={16} />
                 </span>
               </div>
@@ -366,7 +380,7 @@ export function MediaPost({
           )}
         </div>
         {post.kind === "project" && (
-          <span className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-accent text-canvas opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <span className={`absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full ${HUES[hueFor(post.id)]} opacity-0 transition-all duration-300 group-hover:opacity-100`}>
             <Sparkles size={15} />
           </span>
         )}

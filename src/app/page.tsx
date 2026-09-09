@@ -4,6 +4,7 @@ import {
   ProductBanners,
   HowItWorks,
   SkillScroller,
+  Ticker,
 } from "@/components/home";
 import { ProjectCard, ResearchCard, ProfileCard } from "@/components/cards";
 import { Button, SectionHeader, Arrow } from "@/components/primitives";
@@ -14,6 +15,7 @@ export default function Home() {
     <div>
       <Hero />
       <ProductBanners />
+      <Ticker />
       <HowItWorks />
       <SkillScroller />
 

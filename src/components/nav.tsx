@@ -32,13 +32,13 @@ export default function Nav() {
                   href={l.href}
                   data-cur
                   className={`relative whitespace-nowrap rounded-full px-3.5 py-2 label transition-colors duration-300 ${
-                    active ? "text-canvas" : "text-ink-soft hover:text-ink"
+                    active ? "text-ink" : "text-ink-soft hover:text-ink"
                   }`}
                 >
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-ink"
+                      className="absolute inset-0 rounded-full bg-lemon"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}

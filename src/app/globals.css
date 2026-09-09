@@ -11,6 +11,11 @@
   --tan: #e8dcc6;
   --deep: #1e1a13;
   --blue: #3e7cb1;
+  --lemon: #ffe862;
+  --sky: #37ace8;
+  --mint: #7bd88f;
+  --coral: #ff6b57;
+  --grape: #8a6fe8;
 }
 
 @theme inline {
@@ -24,6 +29,11 @@
   --color-tan: var(--tan);
   --color-deep: var(--deep);
   --color-blue: var(--blue);
+  --color-lemon: var(--lemon);
+  --color-sky: var(--sky);
+  --color-mint: var(--mint);
+  --color-coral: var(--coral);
+  --color-grape: var(--grape);
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
 }
@@ -43,8 +53,8 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--paper);
+  background: var(--lemon);
+  color: var(--ink);
 }
 
 @layer components {
@@ -133,6 +143,20 @@ body {
     break-inside: avoid;
     margin-bottom: 1.25rem;
   }
+
+  .animate-marquee {
+    animation: cmarquee 26s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes cmarquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @media (pointer: fine) {
@@ -146,6 +170,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
   }
   .mask-inner,
   .js .mask-inner,

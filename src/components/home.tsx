@@ -12,6 +12,9 @@ import {
   Radio,
 } from "lucide-react";
 import { students, skillGroups } from "@/data/mock";
+import { Avatar, CountUp, Scribble, Skate, SquashButton } from "@/components/primitives";
+
+const HUECLASSES = ["text-sky", "text-mint", "text-coral", "text-grape", "text-lemon"];
 
 export function Hero() {
   return (
@@ -35,10 +38,11 @@ export function Hero() {
         >
           Think it.
           <br />
-          Drop it.
+          <span className="bg-lemon -mx-1 inline-block px-2">Drop it.</span>
           <br />
           <span className="text-accent">Build it.</span>
         </motion.h1>
+        <Scribble className="mt-4 w-44 md:w-60" />
         <motion.p
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,21 +58,11 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-8 flex flex-wrap gap-3"
         >
-          <Link
-            href="/employment-skill-bridge"
-            data-cur
-            className="group inline-flex items-center gap-2 bg-deep px-6 py-4 label text-canvas transition-colors hover:bg-ink"
-          >
-            FIND WORK{" "}
-            <ArrowUpRight
-              size={15}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </Link>
+          <SquashButton href="/employment-skill-bridge" text="FIND WORK" variant="deep" />
           <Link
             href="/research-hub"
             data-cur
-            className="inline-flex items-center gap-2 border border-line px-6 py-4 label text-ink transition-colors hover:border-ink"
+            className="inline-flex items-center gap-2 border border-line px-6 py-4 label text-ink transition-colors hover:border-accent hover:text-accent"
           >
             JOIN RESEARCH
           </Link>
@@ -80,13 +74,15 @@ export function Hero() {
           className="mt-10 flex items-center gap-6"
         >
           {[
-            ["24", "PAID PROJECTS"],
-            ["44", "RESEARCHERS"],
-            ["1,000+", "BUILDERS"],
-          ].map(([n, k]) => (
-            <div key={k}>
-              <div className="disp text-2xl text-ink">{n}</div>
-              <div className="label text-ink-soft">{k}</div>
+            ["PAID PROJECTS", 24, ""],
+            ["RESEARCHERS", 44, ""],
+            ["BUILDERS", 1000, "+"],
+          ].map(([k, n, s]) => (
+            <div key={k as string}>
+              <div className="disp text-2xl text-ink">
+                <CountUp value={n as number} suffix={s as string} />
+              </div>
+              <div className="label text-ink-soft">{k as string}</div>
             </div>
           ))}
         </motion.div>
@@ -136,25 +132,45 @@ function Collage() {
         style={{ aspectRatio: "4/3" }}
       />
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-        className="absolute left-0 top-4 flex items-center gap-3 border border-line bg-canvas px-4 py-3"
+        initial={{ opacity: 0, scale: 0.55, rotate: -8 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 240, damping: 13, delay: 0.7 }}
+        className="absolute left-0 top-4"
       >
-        <img src={s.avatar} alt="" className="h-9 w-9 rounded-full object-cover" />
-        <div>
-          <div className="label text-ink">{s.name}</div>
-          <div className="label text-ink-soft">JUST SHIPPED A PROJECT</div>
-        </div>
+        <Skate rest={-4}>
+          <div className="flex items-center gap-3 border border-line bg-canvas px-4 py-3">
+            <Avatar src={s.avatar} name={s.name} size={34} />
+            <div>
+              <div className="label text-ink">{s.name}</div>
+              <div className="label text-ink-soft">JUST SHIPPED A PROJECT</div>
+            </div>
+          </div>
+        </Skate>
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.9 }}
-        className="absolute bottom-0 left-[6%] flex items-center gap-2 border border-line bg-accent px-4 py-3 text-canvas"
+        initial={{ opacity: 0, scale: 0.55, rotate: 8 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 240, damping: 13, delay: 0.9 }}
+        className="absolute bottom-0 left-[6%]"
       >
-        <Radio size={14} />
-        <span className="label">12 COLLABORATORS LIVE</span>
+        <Skate rest={3}>
+          <div className="flex items-center gap-2 border border-line bg-accent px-4 py-3 text-canvas">
+            <Radio size={14} />
+            <span className="label">12 COLLABORATORS LIVE</span>
+          </div>
+        </Skate>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.4, rotate: -14 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 11, delay: 1.05 }}
+        className="absolute right-0 bottom-[16%]"
+      >
+        <Skate rest={-6}>
+          <div className="border border-deep bg-lemon px-4 py-2.5 label text-ink">
+            ₹12,000 PAID · SHIP THIS WEEK
+          </div>
+        </Skate>
       </motion.div>
     </div>
   );
@@ -181,13 +197,42 @@ export function ProductBanners() {
       />
       <BannerLink
         href="/media-lab"
-        bg="bg-tan"
+        bg="bg-lemon"
         fg="text-ink"
         kicker="03 · MEDIA LAB"
         title="See what people are building right now."
         sub="A live feed of projects, research and launches from the community."
       />
     </section>
+  );
+}
+
+const TICKER_WORDS = [
+  "PAID PROJECTS",
+  "RESEARCH TEAMS",
+  "BRAND IDENTITY",
+  "CLIMATE DATA",
+  "AI STUDY TOOLS",
+  "URBAN RESEARCH",
+  "SOCIAL CAMPAIGNS",
+  "FOOD SYSTEMS",
+  "PRODUCT UX",
+  "YOUTH CULTURE",
+];
+
+export function Ticker() {
+  const words = [...TICKER_WORDS, ...TICKER_WORDS];
+  return (
+    <div className="w-full overflow-hidden border-y border-deep/80 bg-ink py-3 text-canvas">
+      <div className="flex w-max animate-marquee items-center gap-8 whitespace-nowrap px-4">
+        {words.map((w, i) => (
+          <span key={i} className="flex items-center gap-8">
+            <span className={`disp text-xl ${HUECLASSES[i % HUECLASSES.length]}`}>{w}</span>
+            <span className="h-2 w-2 rounded-full bg-canvas/30" />
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -252,10 +297,10 @@ export function HowItWorks() {
         {steps.map((s, i) => (
           <motion.div
             key={s.t}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 24, rotate: i % 2 ? 2 : -2 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
+            transition={{ type: "spring", stiffness: 260, damping: 17, delay: i * 0.07 }}
             className="group bg-canvas p-6"
           >
             <s.icon
@@ -291,12 +336,14 @@ export function SkillScroller() {
         </Link>
       </div>
       <div className="scrub-x -mx-4 mt-5 flex gap-2 overflow-x-auto px-4 md:px-0">
-        {work.map((s) => (
+        {work.map((s, i) => (
           <Link
             key={s}
             href="/employment-skill-bridge"
             data-cur
-            className="shrink-0 border border-line px-4 py-2.5 label text-ink-soft transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-canvas"
+            className={`shrink-0 border border-line px-4 py-2.5 label text-ink-soft transition-all duration-300 hover:border-ink hover:bg-ink hover:text-canvas ${
+              ["-rotate-1", "rotate-1", "rotate-2", "-rotate-2", "rotate-0"][i % 5]
+            }`}
           >
             {s.toUpperCase()}
           </Link>
