@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNav } from "@/components/providers";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -9,31 +10,29 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function AnimatedRoutes({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.main
-        key={pathname}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -12 }}
-        transition={{ duration: 0.32, ease: EASE }}
-      >
-        {children}
-      </motion.main>
-    </AnimatePresence>
+    <motion.main
+      key={pathname}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.32, ease: EASE }}
+    >
+      {children}
+    </motion.main>
   );
 }
 
 export function TransitionBar() {
   const pathname = usePathname();
   const { pending } = useNav();
-  const key =
-    pending && pending.href === pathname
-      ? `${pathname}-${pending.kind}`
-      : pathname;
+  const carry = pending && pending.href === pathname;
+  const key = carry ? `${pathname}-${pending.kind}` : pathname;
   return (
-    <AnimatePresence mode="popLayout">
-      <Wipe key={key} kind={pending && pending.href === pathname ? pending.kind : "default"} image={pending && pending.href === pathname ? pending.image : undefined} title={pending && pending.href === pathname ? pending.title : undefined} />
-    </AnimatePresence>
+    <Wipe
+      key={key}
+      kind={carry ? pending.kind : "default"}
+      image={carry ? pending.image : undefined}
+      title={carry ? pending.title : undefined}
+    />
   );
 }
 
@@ -46,6 +45,8 @@ function Wipe({
   image?: string;
   title?: string;
 }) {
+  const [phase, setPhase] = useState<"in" | "out" | "gone">("in");
+
   const label =
     kind === "research"
       ? "OPEN RESEARCH"
@@ -62,41 +63,48 @@ function Wipe({
       : kind === "project"
         ? "bg-deep"
         : "bg-canvas";
+  const light = kind === "research" || kind === "project";
+
+  if (phase === "gone") return null;
+
   return (
     <motion.div
       className={`pointer-events-none fixed inset-0 z-[70] flex items-center justify-center ${bg}`}
-      initial={{ clipPath: "inset(0 0 100% 0)" }}
-      animate={{ clipPath: "inset(0 0 0% 0)" }}
-      exit={{ clipPath: "inset(100% 0 0 0)" }}
-      transition={{ duration: 0.34, ease: EASE }}
+      variants={{
+        hidden: { clipPath: "inset(100% 0 0 0)" },
+        shown: { clipPath: "inset(0 0 0 0)" },
+        away: { clipPath: "inset(0 0 100% 0)" },
+      }}
+      initial="hidden"
+      animate={phase === "in" ? "shown" : "away"}
+      transition={{ duration: phase === "in" ? 0.34 : 0.42, ease: EASE }}
+      onAnimationComplete={() => setPhase((p) => (p === "in" ? "out" : "gone"))}
     >
       <motion.div
         initial={{ y: 26, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ opacity: 0, y: -16 }}
-        transition={{ duration: 0.3, delay: 0.06, ease: EASE }}
+        transition={{ duration: 0.28, delay: 0.04, ease: EASE }}
         className="flex flex-col items-center gap-4 px-6 text-center"
       >
-        {image && "project" === kind && (
+        {kind === "project" && image && (
           <motion.img
             src={image}
             alt=""
             className="aspect-square w-24 rounded-full object-cover"
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.1, ease: EASE }}
+            transition={{ duration: 0.26, delay: 0.08, ease: EASE }}
           />
         )}
-        <span className={`label ${kind === "research" || kind === "project" ? "text-canvas/80" : "text-ink-soft"}`}>
+        <span className={`label ${light ? "text-canvas/80" : "text-ink-soft"}`}>
           {label}
         </span>
-        {title && (
-          <span className={`disp text-2xl ${kind === "research" || kind === "project" ? "text-canvas" : "text-ink"}`}>
+        {title ? (
+          <span className={`disp text-2xl ${light ? "text-canvas" : "text-ink"}`}>
             {title}
           </span>
-        )}
-        {!title && (
-          <span className={`disp text-4xl ${kind === "research" || kind === "project" ? "text-canvas" : "text-ink"}`}>
+        ) : (
+          <span className={`disp text-4xl ${light ? "text-canvas" : "text-ink"}`}>
             COLLIVIO
           </span>
         )}
