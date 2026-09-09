@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import Link from "next/link";
@@ -61,15 +62,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AppUser | null>(() => {
-    if (typeof window === "undefined") return null;
-    try {
-      const raw = localStorage.getItem(KEY);
-      return raw ? (JSON.parse(raw) as AppUser) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [user, setUser] = useState<AppUser | null>(null);
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) setUser(JSON.parse(raw) as AppUser);
+      } catch {
+        /* ignore */
+      }
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, []);
   const signIn = useCallback((u: AppUser) => {
     setUser(u);
     try {
