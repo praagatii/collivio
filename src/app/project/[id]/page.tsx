@@ -105,7 +105,7 @@ function Detail({ project: p }: { project: ReturnType<typeof projectOf> & object
 
       <div className="mt-6 flex flex-wrap gap-2">
         {p.skills.map((s) => (
-          <Badge key={s} tone="tan">
+          <Badge key={s}>
             {s.toUpperCase()}
           </Badge>
         ))}

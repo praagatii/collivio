@@ -1,27 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #fff6e3;
+  --canvas: #f5f1ea;
   --paper: #ffffff;
   --ink: #16161d;
-  --ink-soft: #5f5c75;
-  --line: #e6deca;
-  --accent: #2b5df0;
-  --accent-soft: #e4ecff;
-  --tan: #fff1c9;
+  --ink-soft: #6b6b73;
+  --line: #e5e0d5;
+  --accent: #ff6b35;
+  --accent-soft: #fff0e8;
   --deep: #14141b;
   --blue: #2b5df0;
-  --lemon: #ffe44d;
-  --orange: #ff7a29;
-  --pink: #ff4fa3;
-  --cyan: #25d4ef;
-  --purple: #8b5cf6;
+  --orange: #ff6b35;
   --lime: #baf000;
-  --mint: #3ddc97;
-  --work: #ff7a29;
-  --research: #2b5df0;
-  --community: #ff4fa3;
-  --discovery: #baf000;
+  --lemon: #ffe44d;
 }
 
 @theme inline {
@@ -32,20 +23,11 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-tan: var(--tan);
   --color-deep: var(--deep);
   --color-blue: var(--blue);
-  --color-lemon: var(--lemon);
   --color-orange: var(--orange);
-  --color-pink: var(--pink);
-  --color-cyan: var(--cyan);
-  --color-purple: var(--purple);
   --color-lime: var(--lime);
-  --color-mint: var(--mint);
-  --color-work: var(--work);
-  --color-research: var(--research);
-  --color-community: var(--community);
-  --color-discovery: var(--discovery);
+  --color-lemon: var(--lemon);
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
 }
@@ -65,8 +47,8 @@ body {
 }
 
 ::selection {
-  background: var(--lemon);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--paper);
 }
 
 @layer components {
@@ -174,26 +156,12 @@ body {
     will-change: transform;
   }
 
-  .animate-bob {
-    animation: cbob 5s ease-in-out infinite;
-  }
-
   @keyframes cmarquee {
     from {
       transform: translateX(0);
     }
     to {
       transform: translateX(-50%);
-    }
-  }
-
-  @keyframes cbob {
-    0%,
-    100% {
-      transform: translateY(0) rotate(-2deg);
-    }
-    50% {
-      transform: translateY(-10px) rotate(2deg);
     }
   }
 }
@@ -210,8 +178,7 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .animate-marquee,
-  .animate-bob {
+  .animate-marquee {
     animation: none;
   }
   .mask-inner,

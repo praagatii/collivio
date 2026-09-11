@@ -37,8 +37,8 @@ export default function ResearchHubPage() {
   return (
     <div className="mx-auto max-w-[1200px] px-4 pb-24 md:px-6">
       <header className="pt-12 md:pt-16">
-        <div className="label flex items-center gap-2 text-research">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-research" />
+        <div className="label flex items-center gap-2 text-ink-soft">
+          <span className="inline-block h-2 w-2 rounded-full bg-ink" />
           RESEARCH HUB
         </div>
         <h1 className="disp mt-4 text-ink" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.4rem)" }}>

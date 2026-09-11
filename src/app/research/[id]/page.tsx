@@ -114,7 +114,7 @@ function Detail({ item }: { item: ReturnType<typeof researchOf> & object }) {
           <Section title="WHAT COLLABORATORS WILL DO">
             <div className="mt-4 flex flex-wrap gap-2">
               {item.collaboratorJobs.map((j) => (
-                <Badge key={j} tone="tan">
+                <Badge key={j}>
                   {j.toUpperCase()}
                 </Badge>
               ))}

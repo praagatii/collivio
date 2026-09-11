@@ -51,7 +51,7 @@ export default function CompanyDetailPage() {
         <div className="mt-5 flex flex-wrap items-center gap-2">
           <span className="label text-ink-soft">AREA OF INTEREST:</span>
           {company.interests.map((i) => (
-            <Badge key={i} tone="tan">
+            <Badge key={i}>
               {i.toUpperCase()}
             </Badge>
           ))}

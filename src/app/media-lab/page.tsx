@@ -30,7 +30,7 @@ export default function MediaLabPage() {
       <header className="flex flex-wrap items-end justify-between gap-4 pt-12 md:pt-16">
         <div>
           <div className="label flex items-center gap-2 text-ink-soft">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-discovery" />
+            <span className="inline-block h-2 w-2 rounded-full bg-ink" />
             MEDIA LAB
           </div>
           <h1 className="disp mt-4 text-ink" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.4rem)" }}>
@@ -42,7 +42,7 @@ export default function MediaLabPage() {
           </h1>
         </div>
         <div className="flex items-center gap-2 pb-2 label text-ink-soft">
-          <Flame size={14} className="text-work" />
+          <Flame size={14} className="text-accent" />
           LIVE FEED · UPDATED HOURLY
         </div>
       </header>

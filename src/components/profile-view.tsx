@@ -57,7 +57,7 @@ export default function ProfileView({ student, self = false }: { student: Studen
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {student.skills.map((s) => (
-              <Badge key={s} tone="tan">
+              <Badge key={s}>
                 {s.toUpperCase()}
               </Badge>
             ))}

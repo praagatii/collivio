@@ -15,14 +15,6 @@ const LINKS = [
   { href: "/profile", label: "Profile" },
 ];
 
-const PILL_COLOR: Record<string, string> = {
-  "/": "bg-ink",
-  "/employment-skill-bridge": "bg-work",
-  "/research-hub": "bg-research",
-  "/media-lab": "bg-discovery",
-  "/profile": "bg-community",
-};
-
 export default function Nav() {
   const pathname = usePathname();
   const { user, isAuthed } = useAuth();
@@ -32,7 +24,7 @@ export default function Nav() {
         <Link href="/" data-cur className="disp text-base tracking-tight text-ink">
           COLLIVIO<span className="text-accent">.</span>
         </Link>
-        <nav className="scrollbar-hide flex flex-1 items-center gap-1.5 overflow-x-auto scrub-x">
+        <nav className="scrollbar-hide flex flex-1 items-center gap-1 overflow-x-auto scrub-x">
           {LINKS.map((l) => {
             const active = l.exact ? pathname === l.href : pathname.startsWith(l.href);
             return (
@@ -40,14 +32,14 @@ export default function Nav() {
                 <Link
                   href={l.href}
                   data-cur
-                  className={`relative whitespace-nowrap rounded-full px-3.5 py-2 label transition-colors duration-300 ${
-                    active ? "text-white" : "text-ink-soft hover:text-ink"
+                  className={`relative whitespace-nowrap rounded-full px-3 py-1.5 label transition-colors duration-300 ${
+                    active ? "text-paper" : "text-ink-soft hover:text-ink"
                   }`}
                 >
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
-                      className={`absolute inset-0 rounded-full ${PILL_COLOR[l.href]}`}
+                      className="absolute inset-0 rounded-full bg-ink"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -63,25 +55,21 @@ export default function Nav() {
             <Link
               href={user?.profileHref ?? "/profile"}
               data-cur
-              className="group flex items-center gap-2 rounded-full border border-line bg-paper py-1.5 pl-1.5 pr-4 transition-colors duration-300 hover:border-ink"
+              className="group flex items-center gap-2"
             >
               <img
                 src={user?.avatar}
                 alt={user?.name ?? "you"}
-                width={26}
-                height={26}
+                width={28}
+                height={28}
                 className="aspect-square rounded-full object-cover"
               />
-              <span className="hidden label hover-line text-ink md:inline">
+              <span className="hidden label text-ink hover:text-accent transition-colors md:inline">
                 {user?.firstName}
               </span>
             </Link>
           ) : (
-            <Link
-              href="/login"
-              data-cur
-              className="rounded-full bg-ink px-5 py-2.5 label text-canvas transition-colors duration-300 hover:bg-accent"
-            >
+            <Link href="/login" data-cur className="label link-line text-ink">
               Log in
             </Link>
           )}
@@ -120,15 +108,14 @@ export function Footer() {
             Think it. Drop it. Build it. — Made by students, for students.
           </p>
           <div className="mt-5 flex gap-2">
-            <span className="h-3 w-3 rounded-full bg-work" />
-            <span className="h-3 w-3 rounded-full bg-research" />
-            <span className="h-3 w-3 rounded-full bg-community" />
-            <span className="h-3 w-3 rounded-full bg-discovery" />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent" />
+            <span className="h-2.5 w-2.5 rounded-full bg-blue" />
+            <span className="h-2.5 w-2.5 rounded-full bg-ink" />
           </div>
           <Link
             href="/signup"
             data-cur
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-lemon px-5 py-3 label text-ink transition-colors hover:bg-canvas"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 label text-paper transition-colors hover:bg-deep"
           >
             GET STARTED <ArrowUpRight size={14} />
           </Link>
