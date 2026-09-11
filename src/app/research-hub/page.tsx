@@ -37,8 +37,8 @@ export default function ResearchHubPage() {
   return (
     <div className="mx-auto max-w-[1200px] px-4 pb-24 md:px-6">
       <header className="pt-12 md:pt-16">
-        <div className="label flex items-center gap-2 text-accent">
-          <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+        <div className="label flex items-center gap-2 text-research">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-research" />
           RESEARCH HUB
         </div>
         <h1 className="disp mt-4 text-ink" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.4rem)" }}>
@@ -60,7 +60,7 @@ export default function ResearchHubPage() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search research…"
-              className="w-full border border-line bg-paper py-3 pl-10 pr-4 text-sm text-ink placeholder:text-ink-soft outline-none transition-colors focus:border-ink"
+              className="w-full rounded-full border border-line bg-paper py-3 pl-10 pr-4 text-sm text-ink placeholder:text-ink-soft outline-none transition-colors focus:border-ink"
             />
           </div>
           <div className="hidden items-center gap-1.5 sm:flex">

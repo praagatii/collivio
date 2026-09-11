@@ -37,20 +37,48 @@ export function Badge({
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "line" | "accent" | "soft" | "paper" | "tan" | "deep";
+  tone?:
+    | "line"
+    | "accent"
+    | "soft"
+    | "paper"
+    | "tan"
+    | "deep"
+    | "lemon"
+    | "orange"
+    | "pink"
+    | "cyan"
+    | "purple"
+    | "lime"
+    | "mint"
+    | "work"
+    | "research"
+    | "community"
+    | "discovery";
   className?: string;
 }) {
   const tones: Record<string, string> = {
     line: "border-line text-ink-soft",
     accent: "border-accent text-accent",
-    soft: "border-accent-soft bg-accent-soft/60 text-accent",
+    soft: "border-accent-soft bg-accent-soft text-accent",
     paper: "border-paper bg-paper text-ink",
-    tan: "border-tan bg-tan/70 text-ink",
+    tan: "border-tan bg-tan text-ink",
     deep: "border-deep bg-deep text-canvas",
+    lemon: "border-lemon bg-lemon text-ink",
+    orange: "border-orange bg-orange text-white",
+    pink: "border-pink bg-pink text-white",
+    cyan: "border-cyan bg-cyan text-ink",
+    purple: "border-purple bg-purple text-white",
+    lime: "border-lime bg-lime text-ink",
+    mint: "border-mint bg-mint text-ink",
+    work: "border-work bg-work text-white",
+    research: "border-research bg-research text-white",
+    community: "border-community bg-community text-white",
+    discovery: "border-discovery bg-discovery text-ink",
   };
   return (
     <span
-      className={`inline-flex items-center gap-1.5 border px-2.5 py-1 label ${tones[tone]} ${className}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1 label ${tones[tone]} ${className}`}
     >
       {children}
     </span>
@@ -71,7 +99,7 @@ export function Chip({
       type="button"
       onClick={onClick}
       data-cur
-      className={`shrink-0 whitespace-nowrap border px-3.5 py-2 label transition-all duration-300 ${
+      className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 label transition-all duration-300 ${
         active
           ? "border-ink bg-ink text-canvas"
           : "border-line text-ink-soft hover:border-ink hover:text-ink"
@@ -93,20 +121,25 @@ export function Button({
 }: {
   href?: string;
   onClick?: () => void;
-  variant?: "deep" | "accent" | "ghost" | "soft" | "paper";
+  variant?: "deep" | "accent" | "ghost" | "soft" | "paper" | "lemon" | "work" | "research" | "community" | "discovery";
   children: React.ReactNode;
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit";
 }) {
   const variants: Record<string, string> = {
-    deep: "bg-deep text-canvas hover:bg-ink",
-    accent: "bg-accent text-canvas hover:bg-deep",
-    ghost: "border border-ink text-ink hover:bg-ink hover:text-canvas",
+    deep: "bg-deep text-canvas hover:bg-accent",
+    accent: "bg-accent text-white hover:bg-deep",
+    ghost: "border-2 border-ink text-ink hover:bg-ink hover:text-canvas",
     soft: "bg-tan text-ink hover:bg-deep hover:text-canvas",
-    paper: "bg-paper text-ink border border-line hover:border-ink",
+    paper: "bg-paper text-ink border-2 border-line hover:border-ink",
+    lemon: "bg-lemon text-ink hover:bg-accent hover:text-white",
+    work: "bg-work text-white hover:bg-deep",
+    research: "bg-research text-white hover:bg-deep",
+    community: "bg-community text-white hover:bg-deep",
+    discovery: "bg-discovery text-ink hover:bg-deep hover:text-canvas",
   };
-  const cls = `group inline-flex items-center justify-center gap-2 px-6 py-3.5 label transition-colors duration-300 disabled:opacity-40 ${variants[variant]} ${className}`;
+  const cls = `group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 label transition-colors duration-300 disabled:opacity-40 ${variants[variant]} ${className}`;
   if (href) {
     return (
       <Link href={href} data-cur className={cls} onClick={onClick}>
@@ -236,10 +269,10 @@ export function SquashButton({
   type?: "button" | "submit";
 }) {
   const variants: Record<string, string> = {
-    deep: "bg-deep text-canvas hover:bg-ink",
-    accent: "bg-accent text-canvas hover:bg-deep",
+    deep: "bg-deep text-canvas hover:bg-accent",
+    accent: "bg-accent text-white hover:bg-deep",
   };
-  const cls = `group inline-flex items-center justify-center gap-2 px-7 py-4 label ${variants[variant]} ${className}`;
+  const cls = `group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 label ${variants[variant]} ${className}`;
   const inner = (
     <>
       {text}
