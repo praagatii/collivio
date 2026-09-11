@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useAuth } from "@/components/providers";
+import SearchOverlay from "@/components/search";
 
 const LINKS = [
   { href: "/", label: "Home", exact: true },
@@ -32,13 +33,13 @@ export default function Nav() {
                   href={l.href}
                   data-cur
                   className={`relative whitespace-nowrap rounded-full px-3.5 py-2 label transition-colors duration-300 ${
-                    active ? "text-ink" : "text-ink-soft hover:text-ink"
+                    active ? "text-canvas" : "text-ink-soft hover:text-ink"
                   }`}
                 >
                   {active && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full bg-lemon"
+                      className="absolute inset-0 rounded-full bg-ink"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -49,6 +50,7 @@ export default function Nav() {
           })}
         </nav>
         <div className="ml-auto flex shrink-0 items-center gap-3">
+          <SearchOverlay />
           {isAuthed ? (
             <Link
               href={user?.profileHref ?? "/profile"}

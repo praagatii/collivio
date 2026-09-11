@@ -1,21 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f9f4ec;
+  --canvas: #f3ede2;
   --paper: #ffffff;
-  --ink: #211d33;
-  --ink-soft: #6a6587;
-  --line: #e2dcec;
+  --ink: #17130d;
+  --ink-soft: #6b6455;
+  --line: #ddd5c4;
   --accent: #7c2d3b;
-  --accent-soft: #ffdbfd;
-  --tan: #c9bcf2;
-  --deep: #2b2360;
-  --blue: #2f8fd0;
-  --lemon: #ffdd4d;
-  --sky: #2ea8e0;
-  --mint: #41d17d;
-  --coral: #ff5a4e;
-  --grape: #7e5be8;
+  --accent-soft: #f2e3d8;
+  --tan: #efe6d3;
+  --deep: #17130d;
+  --blue: #285d8a;
 }
 
 @theme inline {
@@ -29,11 +24,6 @@
   --color-tan: var(--tan);
   --color-deep: var(--deep);
   --color-blue: var(--blue);
-  --color-lemon: var(--lemon);
-  --color-sky: var(--sky);
-  --color-mint: var(--mint);
-  --color-coral: var(--coral);
-  --color-grape: var(--grape);
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
 }
@@ -53,8 +43,8 @@ body {
 }
 
 ::selection {
-  background: var(--lemon);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--paper);
 }
 
 @layer components {
@@ -71,6 +61,14 @@ body {
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: -0.03em;
+  }
+
+  .num-outline {
+    font-family: var(--font-manrope);
+    font-weight: 700;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink-soft);
   }
 
   .mask-box {

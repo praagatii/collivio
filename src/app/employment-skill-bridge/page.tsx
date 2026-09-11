@@ -145,7 +145,7 @@ export default function EmploymentSkillBridgePage() {
             </div>
             <div className="mt-2">
               {filtered.map((p, i) => (
-                <ProjectCard key={p.id} project={p} variant="row" eager={i < 2} />
+                <ProjectCard key={p.id} project={p} variant="row" index={i + 1} eager={i < 2} />
               ))}
             </div>
           </div>
