@@ -1,6 +1,7 @@
 import {
   Hero,
   Idea,
+  PhotoStatement,
   Paths,
   Opportunities,
   People,
@@ -13,6 +14,7 @@ export default function Home() {
     <div>
       <Hero />
       <Idea />
+      <PhotoStatement />
       <Paths />
       <Opportunities />
       <People />
