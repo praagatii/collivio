@@ -109,8 +109,8 @@ export function Footer() {
           </p>
           <div className="mt-5 flex gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-            <span className="h-2.5 w-2.5 rounded-full bg-blue" />
-            <span className="h-2.5 w-2.5 rounded-full bg-ink" />
+            <span className="h-2.5 w-2.5 rounded-full bg-teal" />
+            <span className="h-2.5 w-2.5 rounded-full bg-mustard" />
           </div>
           <Link
             href="/signup"

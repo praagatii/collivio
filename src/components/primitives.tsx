@@ -264,6 +264,42 @@ export function SquashButton({
   );
 }
 
+export function Squiggle({
+  className = "w-full h-16 text-accent",
+  strokeWidth = 3,
+  d,
+}: {
+  className?: string;
+  strokeWidth?: number;
+  d?: string;
+}) {
+  const path =
+    d ??
+    "M0 100 C 80 20, 160 180, 240 100 S 400 20, 480 100 S 640 180, 720 100 S 880 20, 960 100 S 1120 180, 1200 100";
+  return (
+    <motion.svg
+      viewBox="0 0 1200 200"
+      fill="none"
+      preserveAspectRatio="none"
+      className={className}
+      aria-hidden
+    >
+      <motion.path
+        d={path}
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+        initial={{ pathLength: 0, opacity: 0 }}
+        whileInView={{ pathLength: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </motion.svg>
+  );
+}
+
 export function PopIn({
   children,
   className = "",

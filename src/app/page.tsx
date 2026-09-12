@@ -1,6 +1,7 @@
 import {
   Hero,
-  Ecosystem,
+  Idea,
+  Paths,
   Opportunities,
   People,
   ResearchShow,
@@ -11,7 +12,8 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <Ecosystem />
+      <Idea />
+      <Paths />
       <Opportunities />
       <People />
       <ResearchShow />

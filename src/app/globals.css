@@ -1,18 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f5f1ea;
+  --canvas: #f3e9d7;
   --paper: #ffffff;
-  --ink: #16161d;
-  --ink-soft: #6b6b73;
-  --line: #e5e0d5;
-  --accent: #ff6b35;
-  --accent-soft: #fff0e8;
-  --deep: #14141b;
-  --blue: #2b5df0;
-  --orange: #ff6b35;
-  --lime: #baf000;
-  --lemon: #ffe44d;
+  --ink: #201811;
+  --ink-soft: #7b7163;
+  --line: #e2d6bd;
+  --accent: #a22a0f;
+  --accent-soft: #f7e6d9;
+  --deep: #16130e;
+  --teal: #115f78;
+  --mustard: #da9413;
+  --copper: #a22a0f;
+  --olive: #808000;
+  --claret: #8e1137;
+  --burgundy: #470b24;
+  --cherry: #750a0a;
+  --caramel: #5d2806;
 }
 
 @theme inline {
@@ -24,10 +28,14 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-deep: var(--deep);
-  --color-blue: var(--blue);
-  --color-orange: var(--orange);
-  --color-lime: var(--lime);
-  --color-lemon: var(--lemon);
+  --color-teal: var(--teal);
+  --color-mustard: var(--mustard);
+  --color-copper: var(--copper);
+  --color-olive: var(--olive);
+  --color-claret: var(--claret);
+  --color-burgundy: var(--burgundy);
+  --color-cherry: var(--cherry);
+  --color-caramel: var(--caramel);
   --font-sans: var(--font-inter);
   --font-display: var(--font-manrope);
 }
@@ -52,6 +60,14 @@ body {
 }
 
 @layer components {
+  .serif-ita {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+
   .label {
     font-family: var(--font-inter);
     font-size: 0.75rem;

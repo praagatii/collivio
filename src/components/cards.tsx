@@ -7,7 +7,7 @@ import type { Project, Research, Student, FeedPost } from "@/data/mock";
 import { useNav } from "@/components/providers";
 import { Avatar, Badge, VerifiedIcon } from "@/components/primitives";
 
-const CARD = "rounded-[1.5rem] border border-line bg-paper overflow-hidden";
+const CARD = "rounded-[2rem] border border-line bg-paper overflow-hidden";
 const HOVER = { y: -4 };
 const TRANS = { type: "spring" as const, stiffness: 300, damping: 24 };
 
@@ -249,19 +249,31 @@ export function ProfileCard({
   const go = () =>
     setPending({ href, kind: "profile", image: student.avatar, title: student.name });
   return (
-    <motion.article whileHover={HOVER} transition={TRANS} className={`group ${CARD} ${big ? "p-5" : "p-4"}`}>
+    <motion.article whileHover={HOVER} transition={TRANS} className={`group ${CARD} ${big ? "" : "p-4"}`}>
       <Link href={href} onClick={go} data-cur className="flex flex-col gap-3">
-        <div className="flex items-start justify-between">
-          <Avatar src={student.avatar} name={student.name} size={big ? 56 : 44} />
-          <ArrowBubble />
-        </div>
-        <div>
+        {big ? (
+          <div className="relative">
+            <img
+              src={student.avatar}
+              alt={student.name}
+              loading="lazy"
+              className="aspect-[4/3] w-full object-cover"
+            />
+            <ArrowBubble className="absolute right-3 top-3 border border-line" />
+          </div>
+        ) : (
+          <div className="flex items-start justify-between">
+            <Avatar src={student.avatar} name={student.name} size={44} />
+            <ArrowBubble />
+          </div>
+        )}
+        <div className={big ? "px-5 pb-5" : ""}>
           <h3 className="disp text-base text-ink">{student.name}</h3>
           <p className="mt-0.5 text-sm text-ink-soft">{student.role}</p>
           <p className="text-xs text-ink-soft/70">{student.location}</p>
         </div>
-        <div className="flex flex-wrap gap-1.5">
-          {student.skills.slice(0, 3).map((s) => (
+        <div className={`flex flex-wrap gap-1.5 ${big ? "px-5 pb-5" : ""}`}>
+          {student.skills.slice(0, 2).map((s) => (
             <Badge key={s}>{s.toUpperCase()}</Badge>
           ))}
         </div>
