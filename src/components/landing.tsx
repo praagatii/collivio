@@ -107,7 +107,7 @@ function Hero() {
   ];
   return (
     <section className="relative flex min-h-[100svh] flex-col">
-      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-5 pt-8 md:px-8 lg:px-10 lg:pt-10">
+      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-6 pt-9 md:px-10 lg:px-12 lg:pt-10">
         <Link href="/" data-cur aria-label="Collivio home" className="block">
           <img
             src="/collivio-wordmark.png"
@@ -134,13 +134,13 @@ function Hero() {
           </Link>
         </div>
       </div>
-      <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+      <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-8 px-6 py-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-8">
         <div>
           <div className="label tracking-[0.25em] text-coral">PEOPLE · IDEAS · SPACES</div>
           <h1
-            className="font-display mt-4 font-semibold text-navy"
+            className="font-display mt-3 font-semibold text-navy"
             style={{
-              fontSize: "clamp(2.4rem, min(6.5vw, 11vh), 5.75rem)",
+              fontSize: "clamp(2.2rem, min(6.5vw, 11vh), 5.5rem)",
               lineHeight: 1.02,
             }}
           >
@@ -148,11 +148,11 @@ function Hero() {
             <br />
             Together<span className="text-coral">.</span>
           </h1>
-          <p className="mt-5 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
+          <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
             A platform that brings people, ideas and spaces together to create
             opportunities, communities and a more connected tomorrow.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-7 flex flex-wrap gap-4">
             <Link
               href="/login"
               data-cur
@@ -164,13 +164,13 @@ function Hero() {
             <Link
               href="/login"
               data-cur
-              className="group inline-flex items-center gap-2 rounded-full border border-navy/30 bg-white/60 px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:border-navy"
+              className="group inline-flex items-center gap-2 rounded-full border border-navy/30 bg-cream px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:border-navy"
             >
               Explore
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </div>
-          <div className="mt-9 flex items-center gap-4">
+          <div className="mt-8 flex items-center gap-4">
             <div className="flex -space-x-3">
               {students.slice(0, 5).map((s) => (
                 <img
@@ -186,7 +186,7 @@ function Hero() {
             </p>
           </div>
         </div>
-        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:ml-auto lg:h-[420px] lg:max-w-[500px]">
+        <div className="relative mx-auto h-[280px] w-full max-w-[420px] sm:h-[360px] lg:ml-auto lg:h-[420px] lg:max-w-[500px]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -227,7 +227,6 @@ function Hero() {
           </div>
         </div>
       </div>
-      <BlueBand />
     </section>
   );
 }
@@ -748,7 +747,7 @@ function LandingFooter() {
           </div>
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-navy/10 pt-6 text-xs text-navy/50">
-          <span>© 2026 Collivio. All rights reserved.</span>
+          <span>© Collivio. All rights reserved.</span>
           <span>People. Ideas. Spaces. Opportunities.</span>
         </div>
       </div>
@@ -761,6 +760,7 @@ export default function Landing() {
     <div className="overflow-x-clip bg-cream text-navy">
       <main>
         <Hero />
+        <BlueBand />
         <Pillars />
         <Ecosystem />
         <Why />
