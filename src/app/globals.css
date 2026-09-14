@@ -17,6 +17,15 @@
   --burgundy: #470b24;
   --cherry: #750a0a;
   --caramel: #5d2806;
+  --cream: #f6f1e9;
+  --coral: #f2694e;
+  --sun: #f8ce4b;
+  --sky: #6d92d8;
+  --pine: #0e6b4e;
+  --lav: #cbb9ea;
+  --blush: #f9d9e6;
+  --mint: #cdeed9;
+  --navy: #1b1d33;
 }
 
 @theme inline {
@@ -36,8 +45,18 @@
   --color-burgundy: var(--burgundy);
   --color-cherry: var(--cherry);
   --color-caramel: var(--caramel);
+  --color-cream: var(--cream);
+  --color-coral: var(--coral);
+  --color-sun: var(--sun);
+  --color-sky: var(--sky);
+  --color-pine: var(--pine);
+  --color-lav: var(--lav);
+  --color-blush: var(--blush);
+  --color-mint: var(--mint);
+  --color-navy: var(--navy);
   --font-sans: var(--font-inter);
-  --font-display: var(--font-manrope);
+  --font-display: var(--font-poppins);
+  --font-brand: var(--font-baloo);
 }
 
 html {

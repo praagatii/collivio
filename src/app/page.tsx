@@ -1,25 +1,5 @@
-import {
-  Hero,
-  Idea,
-  PhotoStatement,
-  Paths,
-  Opportunities,
-  People,
-  ResearchShow,
-  FinalCta,
-} from "@/components/home";
+import Landing from "@/components/landing";
 
 export default function Home() {
-  return (
-    <div>
-      <Hero />
-      <Idea />
-      <PhotoStatement />
-      <Paths />
-      <Opportunities />
-      <People />
-      <ResearchShow />
-      <FinalCta />
-    </div>
-  );
+  return <Landing />;
 }
