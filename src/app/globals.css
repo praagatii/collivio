@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #f3e9d7;
+  --canvas: #f8f7f2;
   --paper: #ffffff;
   --ink: #201811;
   --ink-soft: #7b7163;
@@ -17,7 +17,7 @@
   --burgundy: #470b24;
   --cherry: #750a0a;
   --caramel: #5d2806;
-  --cream: #f6f1e9;
+  --cream: #f8f7f2;
   --coral: #f2694e;
   --sun: #f8ce4b;
   --sky: #6d92d8;

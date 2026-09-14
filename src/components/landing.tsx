@@ -187,7 +187,7 @@ function Hero() {
             </p>
           </div>
         </div>
-        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:-mt-8 lg:mx-auto lg:h-[400px] lg:max-w-[480px]">
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:order-1 lg:-mt-8 lg:h-[400px] lg:max-w-[480px]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -390,7 +390,7 @@ function Ecosystem() {
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{
-            backgroundImage: "radial-gradient(#f6f1e9 1.5px, transparent 1.5px)",
+            backgroundImage: "radial-gradient(#f8f7f2 1.5px, transparent 1.5px)",
             backgroundSize: "26px 26px",
           }}
         />
@@ -694,7 +694,7 @@ function LandingFooter() {
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="h-[15px] w-[15px]" aria-hidden>
           <path d="M22 12s0-3.3-.4-4.9c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.3c-.9.2-1.6.9-1.8 1.8C2 8.7 2 12 2 12s0 3.3.4 4.9c.2.9.9 1.6 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.3c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.9.4-4.9z" />
-          <path d="M10 9.2v5.6l4.8-2.8z" fill="#f6f1e9" />
+            <path d="M10 9.2v5.6l4.8-2.8z" fill="#f8f7f2" />
         </svg>
       ),
     },
