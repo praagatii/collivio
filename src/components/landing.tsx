@@ -1,15 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  ArrowDown,
-  Menu,
-  X,
-  Star,
-} from "lucide-react";
+import { ArrowRight, ArrowDown, Star } from "lucide-react";
 import { students } from "@/data/mock";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -81,85 +74,50 @@ function Rays({ className = "" }: { className?: string }) {
   );
 }
 
-function GlobeArt({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 560 440" fill="none" className={className} aria-hidden>
-      <ellipse
-        cx="280"
-        cy="235"
-        rx="195"
-        ry="72"
-        transform="rotate(-16 280 235)"
-        stroke="#f8ce4b"
-        strokeWidth="14"
-        strokeLinecap="round"
-      />
-      <circle cx="280" cy="210" r="105" fill="#f6f1e9" stroke="#1b1d33" strokeWidth="10" />
-      <ellipse cx="280" cy="210" rx="45" ry="105" stroke="#1b1d33" strokeWidth="8" />
-      <path
-        d="M225 210Q280 168 335 210Q280 252 225 210Z"
-        fill="#ffffff"
-        stroke="#1b1d33"
-        strokeWidth="8"
-      />
-      <circle cx="280" cy="210" r="17" fill="#1b1d33" />
-      <path
-        d="M95 265C160 345 400 350 465 265"
-        stroke="#f2694e"
-        strokeWidth="16"
-        strokeLinecap="round"
-      />
-      <path d="M392 118C448 158 448 262 380 300" stroke="#cbb9ea" strokeWidth="14" strokeLinecap="round" />
-      <path d="M150 80l-15-25" stroke="#f8ce4b" strokeWidth="8" strokeLinecap="round" />
-      <path d="M185 60l-7-28" stroke="#f8ce4b" strokeWidth="8" strokeLinecap="round" />
-      <path d="M120 120l-25-15" stroke="#f8ce4b" strokeWidth="8" strokeLinecap="round" />
-      <path d="M470 180l22-8" stroke="#f2694e" strokeWidth="8" strokeLinecap="round" />
-      <path d="M472 212l24-2" stroke="#f2694e" strokeWidth="8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function LandingHeader() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  const links = [
-    { href: "#why", label: "About" },
-    { href: "#how", label: "How it works" },
-    { href: "#explore", label: "Explore" },
+function Hero() {
+  const pills = [
+    {
+      t: "People",
+      cls: "bg-sun text-navy",
+      rotate: "rotate-2",
+      size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
+      pos: "right-0 top-[6%]",
+    },
+    {
+      t: "Ideas",
+      cls: "bg-coral text-white",
+      rotate: "-rotate-2",
+      size: "px-5 py-2.5 text-sm sm:text-base",
+      pos: "right-[2%] top-[36%]",
+    },
+    {
+      t: "Spaces",
+      cls: "bg-lav text-navy",
+      rotate: "rotate-1",
+      size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
+      pos: "right-[7%] top-[64%]",
+    },
+    {
+      t: "Opportunities",
+      cls: "bg-pine text-cream",
+      rotate: "-rotate-1",
+      size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
+      pos: "bottom-[4%] right-0",
+    },
   ];
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-cream/85 backdrop-blur-md shadow-[0_1px_0_0_rgba(27,29,51,0.08)]" : ""
-      }`}
-    >
-      <div
-        className={`mx-auto flex max-w-[1240px] items-center justify-between px-5 transition-all duration-300 md:px-8 ${
-          scrolled ? "py-3" : "py-5"
-        }`}
-      >
-        <Link href="/" data-cur className="font-brand text-2xl text-coral">
-          Collivio.
+    <section className="relative flex min-h-[100svh] flex-col">
+      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-5 pt-8 md:px-8 lg:px-10 lg:pt-10">
+        <Link href="/" data-cur aria-label="Collivio home" className="block">
+          <img
+            src="/collivio-wordmark.png"
+            alt="Collivio."
+            width={2172}
+            height={724}
+            className="h-auto w-[115px] md:w-[124px]"
+          />
         </Link>
-        <nav className="hidden items-center gap-9 md:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              data-cur
-              className="text-sm text-navy/65 transition-colors duration-200 hover:text-navy"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="flex items-center gap-3">
           <Link
             href="/login"
             data-cur
@@ -168,139 +126,115 @@ function LandingHeader() {
             Log in
           </Link>
           <Link
-            href="/signup"
+            href="/login"
             data-cur
             className="rounded-full bg-coral px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
           >
             Get Started
           </Link>
         </div>
-        <button
-          type="button"
-          data-cur
-          aria-label="Menu"
-          onClick={() => setOpen(!open)}
-          className="grid h-10 w-10 place-items-center rounded-full border border-navy/20 text-navy md:hidden"
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
       </div>
-      {open && (
-        <div className="border-t border-navy/10 bg-cream px-6 py-6 md:hidden">
-          <div className="flex flex-col gap-4">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                data-cur
-                onClick={() => setOpen(false)}
-                className="text-sm text-navy/75"
-              >
-                {l.label}
-              </a>
-            ))}
-            <div className="mt-2 flex gap-3">
-              <Link
-                href="/login"
-                data-cur
-                className="rounded-full border border-navy/20 px-5 py-2.5 text-sm text-navy"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/signup"
-                data-cur
-                className="rounded-full bg-coral px-5 py-2.5 text-sm text-white"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </header>
-  );
-}
-
-function Hero() {
-  const pills = [
-    { t: "People", cls: "bg-sun text-navy rotate-2" },
-    { t: "Ideas", cls: "bg-coral text-white -rotate-2" },
-    { t: "Spaces", cls: "bg-lav text-navy rotate-1" },
-    { t: "Opportunities", cls: "bg-pine text-cream -rotate-1" },
-  ];
-  return (
-    <section className="mx-auto grid max-w-[1240px] items-center gap-12 px-5 pb-20 pt-12 md:grid-cols-[1.05fr_0.95fr] md:px-8 md:pt-16">
-      <div>
-        <div className="label tracking-[0.25em] text-coral">PEOPLE · IDEAS · SPACES</div>
-        <h1
-          className="font-display mt-5 font-semibold text-navy"
-          style={{ fontSize: "clamp(3.2rem, 8vw, 6rem)", lineHeight: 1.02 }}
-        >
-          Tomorrow,
-          <br />
-          Together<span className="text-coral">.</span>
-        </h1>
-        <p className="mt-6 max-w-md text-base leading-relaxed text-navy/65 md:text-lg">
-          A platform that brings people, ideas and spaces together to create
-          opportunities, communities and a more connected tomorrow.
-        </p>
-        <div className="mt-9 flex flex-wrap gap-4">
-          <Link
-            href="/signup"
-            data-cur
-            className="group inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
+      <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-10 px-5 py-10 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
+        <div>
+          <div className="label tracking-[0.25em] text-coral">PEOPLE · IDEAS · SPACES</div>
+          <h1
+            className="font-display mt-4 font-semibold text-navy"
+            style={{
+              fontSize: "clamp(2.4rem, min(6.5vw, 11vh), 5.75rem)",
+              lineHeight: 1.02,
+            }}
           >
-            Get Started
-            <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-          <a
-            href="#explore"
-            data-cur
-            className="group inline-flex items-center gap-2 rounded-full border border-navy/25 px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:border-navy"
-          >
-            Explore
-            <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-          </a>
-        </div>
-        <div className="mt-10 flex items-center gap-4">
-          <div className="flex -space-x-3">
-            {students.slice(0, 5).map((s) => (
-              <img
-                key={s.id}
-                src={s.avatar}
-                alt={s.name}
-                className="h-9 w-9 rounded-full border-2 border-cream object-cover"
-              />
-            ))}
-          </div>
-          <p className="max-w-[15rem] text-xs leading-relaxed text-navy/60">
-            Join a growing community of creators, learners and doers.
+            Tomorrow,
+            <br />
+            Together<span className="text-coral">.</span>
+          </h1>
+          <p className="mt-5 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
+            A platform that brings people, ideas and spaces together to create
+            opportunities, communities and a more connected tomorrow.
           </p>
-        </div>
-      </div>
-      <div className="relative h-[300px] sm:h-[360px] md:h-[460px]">
-        <GlobeArt className="absolute inset-0 h-full w-full" />
-        <div className="absolute right-0 top-2 flex flex-col items-start gap-2 sm:top-4 sm:gap-3 md:-right-2">
-          {pills.map((p, i) => (
-            <motion.div
-              key={p.t}
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
-              className={`rounded-lg px-4 py-2 font-display text-xs font-semibold sm:rounded-xl sm:px-6 sm:py-3 sm:text-sm ${p.cls}`}
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/login"
+              data-cur
+              className="group inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
             >
-              {p.t}
-            </motion.div>
-          ))}
+              Get Started
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              href="/login"
+              data-cur
+              className="group inline-flex items-center gap-2 rounded-full border border-navy/30 bg-white/60 px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:border-navy"
+            >
+              Explore
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+          <div className="mt-9 flex items-center gap-4">
+            <div className="flex -space-x-3">
+              {students.slice(0, 5).map((s) => (
+                <img
+                  key={s.id}
+                  src={s.avatar}
+                  alt={s.name}
+                  className="h-9 w-9 rounded-full border-2 border-cream object-cover"
+                />
+              ))}
+            </div>
+            <p className="max-w-[16rem] text-xs leading-relaxed text-navy/60">
+              A growing community of creators, learners and doers.
+            </p>
+          </div>
+        </div>
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:ml-auto lg:h-[420px] lg:max-w-[500px]">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="absolute inset-0"
+          >
+            <img
+              src="/collivio-globe.png"
+              alt="Collivio globe illustration with coloured orbits"
+              width={1536}
+              height={1024}
+              className="h-full w-full object-contain"
+            />
+          </motion.div>
+          <div className="pointer-events-none absolute inset-0">
+            {pills.map((p, i) => (
+              <motion.div
+                key={p.t}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45 + i * 0.12, ease: EASE }}
+                className={`absolute ${p.pos}`}
+              >
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                >
+                  <Link
+                    href="/login"
+                    data-cur
+                    className={`pointer-events-auto inline-block rounded-xl font-display font-semibold ${p.size} ${p.rotate} ${p.cls}`}
+                  >
+                    {p.t}
+                  </Link>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
+      <BlueBand />
     </section>
   );
 }
 
 function BlueBand() {
   return (
-    <section className="relative overflow-hidden bg-sky py-10">
+    <section className="relative overflow-hidden bg-sky py-8 md:py-10">
       <svg
         viewBox="0 0 1440 160"
         preserveAspectRatio="none"
@@ -347,31 +281,31 @@ function Pillars() {
       desc: "Find the people who move ideas forward.",
       bg: "bg-blush",
       glyph: <PeopleGlyph className="h-24 w-auto" />,
-      href: "/profile",
+      href: "/login",
     },
     {
       title: "Ideas",
       desc: "Discover, develop and share ideas worth building.",
       bg: "bg-sun/40",
       glyph: <BulbGlyph className="h-24 w-auto" />,
-      href: "/research-hub",
+      href: "/login",
     },
     {
       title: "Spaces",
       desc: "Find the places where people and ideas come together.",
       bg: "bg-mint",
       glyph: <PinGlyph className="h-24 w-auto" />,
-      href: "/media-lab",
+      href: "/login",
     },
   ];
   return (
-    <section id="pillars" className="mx-auto max-w-[1240px] scroll-mt-24 px-5 py-24 md:px-8">
+    <section id="pillars" className="mx-auto max-w-[1240px] scroll-mt-24 px-5 py-16 md:px-8 md:py-24">
       <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end">
         <div>
           <div className="label tracking-[0.2em] text-navy/50">OUR PILLARS</div>
           <h2
             className="font-display mt-4 font-semibold text-navy"
-            style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", lineHeight: 1.05 }}
+            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1.05 }}
           >
             Everything starts
             <br />
@@ -396,7 +330,7 @@ function Pillars() {
             <Link
               href={c.href}
               data-cur
-              className={`group flex min-h-[380px] flex-col rounded-[2rem] p-8 ${c.bg}`}
+              className={`group flex min-h-[340px] flex-col rounded-[2rem] p-7 md:min-h-[380px] md:p-8 ${c.bg}`}
             >
               <div className="flex h-28 items-center justify-center">{c.glyph}</div>
               <h3 className="font-display mt-6 text-[1.75rem] font-semibold text-navy">
@@ -419,28 +353,28 @@ function Ecosystem() {
     {
       t: "People",
       d: "Meet, collaborate and grow.",
-      x: 12,
+      x: 14,
       y: 26,
       icon: <PeopleGlyph a="#1b1d33" b="#cbb9ea" c="#cbb9ea" className="h-10 w-auto" />,
     },
     {
       t: "Ideas",
       d: "Turn ideas into real projects.",
-      x: 37,
+      x: 38,
       y: 66,
       icon: <BulbGlyph className="h-10 w-auto" />,
     },
     {
       t: "Spaces",
       d: "Discover and host spaces.",
-      x: 63,
+      x: 62,
       y: 30,
       icon: <PinGlyph body="#f2694e" className="h-10 w-auto" />,
     },
     {
       t: "Opportunities",
       d: "Create real impact together.",
-      x: 88,
+      x: 86,
       y: 50,
       icon: <Star size={34} className="fill-sun text-sun" />,
     },
@@ -478,7 +412,7 @@ function Ecosystem() {
             A simple ecosystem for a more connected tomorrow.
           </p>
           <a
-            href="#why"
+            href="/login"
             data-cur
             className="group mt-9 inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3 text-sm text-navy transition-colors duration-200 hover:bg-sun"
           >
@@ -495,7 +429,7 @@ function Ecosystem() {
             backgroundSize: "26px 26px",
           }}
         />
-        <div className="relative h-[340px] md:h-[420px]">
+        <div className="relative h-[300px] sm:h-[340px] md:h-[420px]">
           <svg
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
@@ -524,9 +458,15 @@ function Ecosystem() {
               className="absolute w-20 -translate-x-1/2 -translate-y-1/2 text-center sm:w-28"
               style={{ left: `${n.x}%`, top: `${n.y}%` }}
             >
-              <div className="flex justify-center">{n.icon}</div>
-              <div className="font-display mt-2 text-xs font-semibold text-navy sm:text-sm">{n.t}</div>
-              <div className="mt-1 text-[10px] leading-snug text-navy/55 sm:text-[11px]">{n.d}</div>
+              <Link
+                href="/login"
+                data-cur
+                className="block"
+              >
+                <div className="flex justify-center">{n.icon}</div>
+                <div className="font-display mt-2 text-xs font-semibold text-navy sm:text-sm">{n.t}</div>
+                <div className="mt-1 text-[10px] leading-snug text-navy/55 sm:text-[11px]">{n.d}</div>
+              </Link>
             </div>
           ))}
         </div>
@@ -537,12 +477,12 @@ function Ecosystem() {
 
 function Why() {
   return (
-    <section id="why" className="mx-auto grid max-w-[1240px] scroll-mt-24 items-center gap-12 px-5 py-24 md:grid-cols-2 md:px-8">
+    <section id="why" className="mx-auto grid max-w-[1240px] scroll-mt-24 items-center gap-12 px-5 py-16 md:grid-cols-2 md:px-8 md:py-24">
       <div>
         <div className="label tracking-[0.2em] text-navy/50">WHY COLLIVIO</div>
         <h2
           className="font-display mt-4 font-semibold text-navy"
-          style={{ fontSize: "clamp(2.2rem, 4.6vw, 3.6rem)", lineHeight: 1.08 }}
+          style={{ fontSize: "clamp(2rem, 4.6vw, 3.6rem)", lineHeight: 1.08 }}
         >
           Good things
           <br />
@@ -554,7 +494,7 @@ function Why() {
           stronger communities.
         </p>
         <a
-          href="#how"
+          href="/login"
           data-cur
           className="group mt-8 inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
         >
@@ -589,41 +529,41 @@ function Action() {
       t: "Events",
       d: "Workshops, talks and meetups.",
       img: "https://picsum.photos/seed/collivio-event/600/450",
-      href: "/media-lab",
+      href: "/login",
     },
     {
       t: "Communities",
       d: "Find your people.",
       img: "https://picsum.photos/seed/collivio-community/600/450",
-      href: "/profile",
+      href: "/login",
     },
     {
       t: "Spaces",
       d: "Explore and book spaces.",
       img: "https://picsum.photos/seed/collivio-space/600/450",
-      href: "/media-lab",
+      href: "/login",
     },
     {
       t: "Ideas",
       d: "Turn ideas into action.",
       img: "https://picsum.photos/seed/collivio-ideas/600/450",
-      href: "/research-hub",
+      href: "/login",
     },
   ];
   return (
-    <section id="explore" className="mx-auto max-w-[1240px] scroll-mt-24 px-5 pb-24 md:px-8">
+    <section id="explore" className="mx-auto max-w-[1240px] scroll-mt-24 px-5 pb-16 md:px-8 md:pb-24">
       <div className="flex flex-wrap items-end justify-between gap-5">
         <div>
           <div className="label tracking-[0.2em] text-navy/50">COLLIVIO IN ACTION</div>
           <h2
             className="font-display mt-4 font-semibold text-navy"
-            style={{ fontSize: "clamp(1.9rem, 4vw, 3rem)" }}
+            style={{ fontSize: "clamp(1.7rem, 4vw, 3rem)" }}
           >
             Real people. Real ideas. Real spaces.
           </h2>
         </div>
         <Link
-          href="/media-lab"
+          href="/login"
           data-cur
           className="group inline-flex items-center gap-2 rounded-full border border-navy/25 px-6 py-3 text-sm text-navy transition-colors duration-200 hover:border-navy"
         >
@@ -631,7 +571,7 @@ function Action() {
           <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
         </Link>
       </div>
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+      <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {tiles.map((t, i) => (
           <motion.div
             key={t.t}
@@ -649,8 +589,8 @@ function Action() {
                   className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                 />
               </div>
-              <h3 className="font-display mt-4 text-lg font-semibold text-navy">{t.t}</h3>
-              <p className="mt-1 text-sm text-navy/60">{t.d}</p>
+              <h3 className="font-display mt-3 text-base font-semibold text-navy md:mt-4 md:text-lg">{t.t}</h3>
+              <p className="mt-1 text-xs text-navy/60 md:text-sm">{t.d}</p>
             </Link>
           </motion.div>
         ))}
@@ -661,7 +601,7 @@ function Action() {
 
 function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-coral py-20">
+    <section className="relative overflow-hidden bg-coral py-16 md:py-20">
       <Rays className="absolute right-10 top-8 h-16 w-16 rotate-12" />
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-10 px-5 md:px-8">
         <div>
@@ -679,7 +619,7 @@ function FinalCta() {
         </div>
         <div className="flex flex-wrap gap-4">
           <Link
-            href="/signup"
+            href="/login"
             data-cur
             className="group inline-flex items-center gap-2 rounded-full bg-cream px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:bg-sun"
           >
@@ -704,19 +644,19 @@ function LandingFooter() {
     {
       h: "EXPLORE",
       links: [
-        { t: "People", href: "/profile" },
-        { t: "Ideas", href: "/research-hub" },
-        { t: "Spaces", href: "/media-lab" },
-        { t: "Opportunities", href: "/employment-skill-bridge" },
+        { t: "People", href: "/login" },
+        { t: "Ideas", href: "/login" },
+        { t: "Spaces", href: "/login" },
+        { t: "Opportunities", href: "/login" },
       ],
     },
     {
       h: "COMPANY",
       links: [
-        { t: "About", href: "#why" },
-        { t: "Contact", href: "mailto:hello@collivio.app" },
-        { t: "Privacy", href: "#" },
-        { t: "Terms", href: "#" },
+        { t: "About", href: "/login" },
+        { t: "Contact", href: "/login" },
+        { t: "Privacy", href: "/login" },
+        { t: "Terms", href: "/login" },
       ],
     },
   ];
@@ -760,11 +700,17 @@ function LandingFooter() {
     },
   ];
   return (
-    <footer className="bg-cream pb-8 pt-16">
+    <footer className="bg-cream pb-8 pt-12 md:pt-16">
       <div className="mx-auto max-w-[1240px] px-5 md:px-8">
         <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
           <div>
-            <div className="font-brand text-3xl text-coral">Collivio.</div>
+            <img
+              src="/collivio-wordmark.png"
+              alt="Collivio."
+              width={2172}
+              height={724}
+              className="h-auto w-[140px]"
+            />
             <p className="mt-3 text-sm text-navy/70">Tomorrow, Together.</p>
           </div>
           {cols.map((c) => (
@@ -790,7 +736,7 @@ function LandingFooter() {
               {socials.map((s) => (
                 <a
                   key={s.name}
-                  href="#"
+                  href="/login"
                   data-cur
                   aria-label={s.name}
                   className="grid h-9 w-9 place-items-center rounded-full border border-navy/15 text-navy transition-colors duration-200 hover:bg-navy hover:text-cream"
@@ -813,10 +759,8 @@ function LandingFooter() {
 export default function Landing() {
   return (
     <div className="overflow-x-clip bg-cream text-navy">
-      <LandingHeader />
       <main>
         <Hero />
-        <BlueBand />
         <Pillars />
         <Ecosystem />
         <Why />
