@@ -89,7 +89,7 @@ function Hero() {
       cls: "bg-coral text-white",
       rotate: "-rotate-2",
       size: "px-5 py-2.5 text-sm sm:text-base",
-      pos: "right-[22%] top-[46%]",
+      pos: "right-[1%] top-[46%]",
     },
     {
       t: "Spaces",
@@ -141,7 +141,7 @@ function Hero() {
           <h1
             className="font-display mt-3 font-semibold text-navy"
             style={{
-              fontSize: "clamp(2.2rem, min(6.5vw, 11vh), 5.5rem)",
+              fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)",
               lineHeight: 1.02,
             }}
           >
@@ -149,7 +149,7 @@ function Hero() {
             <br />
             Together<span className="text-coral">.</span>
           </h1>
-          <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
+          <p className="mt-4 max-w-[30rem] text-lg leading-relaxed text-navy/65 md:text-xl">
             A platform that brings people, ideas and spaces together to create
             opportunities, communities and a more connected tomorrow.
           </p>
@@ -187,20 +187,21 @@ function Hero() {
             </p>
           </div>
         </div>
-        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:order-1 lg:-mt-8 lg:h-[400px] lg:max-w-[480px]">
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:order-1 lg:-mt-16 lg:h-[400px] lg:max-w-[480px]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE }}
             className="absolute inset-0"
           >
-            <img
-              src="/collivio-globe.png"
-              alt="Collivio globe illustration with coloured orbits"
-              width={1536}
-              height={1024}
-              className="h-full w-full object-contain"
-            />
+        <img
+            src="/collivio-globe.png"
+            alt="Collivio globe illustration with coloured orbits"
+            width={1536}
+            height={1024}
+            fetchPriority="high"
+            className="h-full w-full object-contain"
+          />
           </motion.div>
           <div className="pointer-events-none absolute inset-0">
             {pills.map((p, i) => (
@@ -305,7 +306,7 @@ function Pillars() {
           <div className="label tracking-[0.2em] text-navy/50">OUR PILLARS</div>
           <h2
             className="font-display mt-4 font-semibold text-navy"
-            style={{ fontSize: "clamp(2rem, 5vw, 4rem)", lineHeight: 1.05 }}
+            style={{ fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)", lineHeight: 1.05 }}
           >
             Everything starts
             <br />
@@ -398,7 +399,7 @@ function Ecosystem() {
           <div className="label tracking-[0.2em] text-cream/60">HOW COLLIVIO CONNECTS THEM</div>
           <h2
             className="font-display mt-6 font-semibold"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)", lineHeight: 1.12 }}
+            style={{ fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)", lineHeight: 1.12 }}
           >
             People.
             <br />
@@ -482,7 +483,7 @@ function Why() {
         <div className="label tracking-[0.2em] text-navy/50">WHY COLLIVIO</div>
         <h2
           className="font-display mt-4 font-semibold text-navy"
-          style={{ fontSize: "clamp(2rem, 4.6vw, 3.6rem)", lineHeight: 1.08 }}
+          style={{ fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)", lineHeight: 1.08 }}
         >
           Good things
           <br />
@@ -557,7 +558,7 @@ function Action() {
           <div className="label tracking-[0.2em] text-navy/50">COLLIVIO IN ACTION</div>
           <h2
             className="font-display mt-4 font-semibold text-navy"
-            style={{ fontSize: "clamp(1.7rem, 4vw, 3rem)" }}
+            style={{ fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)" }}
           >
             Real people. Real ideas. Real spaces.
           </h2>
@@ -607,7 +608,7 @@ function FinalCta() {
         <div>
           <h2
             className="font-display font-semibold text-white"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", lineHeight: 1.08 }}
+            style={{ fontSize: "clamp(3rem, min(9vw, 15vh), 7rem)", lineHeight: 1.08 }}
           >
             There&apos;s always
             <br />
