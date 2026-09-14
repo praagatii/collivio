@@ -136,7 +136,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
+
             className="absolute inset-0"
           >
             <img src="/collivio-globe.png" alt="Collivio globe" width={1536} height={1024} fetchPriority="high" className="h-full w-full object-contain" />
