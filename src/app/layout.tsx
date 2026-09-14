@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope, Poppins, Baloo_2 } from "next/font/google";
 import { Providers } from "@/components/providers";
+import LoadingScreen from "@/components/loading-screen";
 import { NavGate, FooterGate } from "@/components/chrome";
 import { AnimatedRoutes, TransitionBar } from "@/components/transition";
 import Cursor from "@/components/cursor";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <Providers>
+          <LoadingScreen />
           <NavGate />
           <AnimatedRoutes>{children}</AnimatedRoutes>
           <FooterGate />
