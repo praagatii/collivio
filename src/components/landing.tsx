@@ -77,49 +77,38 @@ function Rays({ className = "" }: { className?: string }) {
 
 function Hero() {
   const pills = [
-    { t: "People", cls: "bg-sun text-navy", rotate: "rotate-2", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "right-[2%] top-[20%]" },
+    { t: "People", cls: "bg-sun text-navy", rotate: "rotate-2", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "right-[2%] top-[18%]" },
     { t: "Ideas", cls: "bg-coral text-white", rotate: "-rotate-2", size: "px-5 py-2.5 text-sm sm:text-base", pos: "right-[1%] top-[46%]" },
     { t: "Spaces", cls: "bg-lav text-navy", rotate: "rotate-1", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "right-[1%] top-[66%]" },
     { t: "Opportunities", cls: "bg-pine text-cream", rotate: "-rotate-1", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "bottom-[10%] right-[6%]" },
   ];
-  const segs = [
-    { d: "M12 26C20 2 32 6 37 66", c: "#f8ce4b" },
-    { d: "M37 66C42 95 54 90 63 30", c: "#f2694e" },
-    { d: "M63 30C70 6 80 12 88 50", c: "#cbb9ea" },
-  ];
-  const nodes = [
-    { t: "People", d: "Find your people." },
-    { t: "Ideas", d: "Turn ideas into real action." },
-    { t: "Spaces", d: "Discover and host spaces." },
-    { t: "Opportunities", d: "Create real impact together." },
-  ];
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-clip">
-      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-6 pt-9 md:px-10 lg:px-12 lg:pt-10">
-        <Link href="/" data-cur aria-label="Collivio home" className="block">
-          <img
-            src="/collivio-wordmark.png"
-            alt="Collivio."
-            width={2172}
-            height={724}
-            className="h-auto w-[115px] md:w-[124px]"
-          />
-        </Link>
+    <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-cream">
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "radial-gradient(60% 45% at 70% 30%, rgba(248,206,75,0.18), transparent 70%)",
+      }} />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.5]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(27,29,51,0.06) 1.2px, transparent 1.2px)",
+          backgroundSize: "26px 26px",
+        }}
+      />
+      <div className="relative z-10 flex items-center justify-between px-6 pt-8 md:px-10 lg:px-12 lg:pt-9">
+        <div>
+          <img src="/collivio-wordmark.png" alt="Collivio." width={2172} height={724} className="h-auto w-[115px] md:w-[124px]" />
+        </div>
         <div className="flex items-center gap-3">
-          <Link href="/login" data-cur className="rounded-full border border-navy/20 px-5 py-2.5 text-sm text-navy transition-colors duration-200 hover:border-navy">
-            Log in
-          </Link>
-          <Link href="/login" data-cur className="rounded-full bg-pine px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy">
-            Get Started
-          </Link>
+          <Link href="/login" data-cur className="rounded-full border border-navy/20 px-5 py-2.5 text-sm text-navy transition-colors duration-200 hover:border-navy">Log in</Link>
+          <Link href="/login" data-cur className="rounded-full bg-pine px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy">Get Started</Link>
         </div>
       </div>
-      <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-8 px-6 py-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-8">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-10 px-6 py-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-8">
         <div>
           <h1
-            className="font-display mt-3 font-semibold text-navy"
+            className="font-display font-semibold text-navy"
             style={{
-              fontSize: "clamp(2.6rem, min(8vw, 13vh), 6.5rem)",
+              fontSize: "clamp(2.4rem, min(7.5vw, 12vh), 6rem)",
               lineHeight: 1.02,
             }}
           >
@@ -127,45 +116,30 @@ function Hero() {
             <br />
             Together<span className="text-coral">.</span>
           </h1>
-          <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
+          <div className="mt-3 h-2 w-24 rounded-full bg-coral md:w-28" />
+          <p className="mt-5 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
             A platform that brings people, ideas and spaces together to create
             opportunities, communities and a more connected tomorrow.
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
-            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full bg-pine px-6 py-3 text-sm text-white transition-colors duration-200 hover:bg-navy">
+            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full bg-pine px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy">
               Get Started
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
-            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full border border-pine/30 px-6 py-3 text-sm text-pine transition-colors duration-200 hover:border-pine">
+            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full border border-pine/30 bg-cream px-7 py-3.5 text-sm text-pine transition-colors duration-200 hover:border-pine">
               Explore
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </div>
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex -space-x-3">
-              {students.slice(0, 5).map((s) => (
-                <img key={s.id} src={s.avatar} alt={s.name} className="h-9 w-9 rounded-full border-2 border-cream object-cover" />
-              ))}
-            </div>
-            <p className="max-w-[16rem] text-xs leading-relaxed text-navy/60">
-              A growing community of creators, learners and doers.
-            </p>
-          </div>
         </div>
-        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:order-1 lg:-ml-16 lg:-mt-8 lg:h-[400px] lg:max-w-[480px]">
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:-ml-8 lg:-mt-6 lg:h-[400px] lg:max-w-[480px]">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="absolute inset-0 overflow-visible"
+            className="absolute inset-0"
           >
-            <img
-              src="/collivio-globe.png"
-              alt="Collivio globe illustration with coloured orbits"
-              width={1536}
-              height={1024}
-              className="h-full w-full object-contain"
-            />
+            <img src="/collivio-globe.png" alt="Collivio globe" width={1536} height={1024} fetchPriority="high" className="h-full w-full object-contain" />
           </motion.div>
           <div className="pointer-events-none absolute inset-0">
             {pills.map((p, i) => (
@@ -173,18 +147,14 @@ function Hero() {
                 key={p.t}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.45 + i * 0.1, ease: EASE }}
+                transition={{ duration: 0.6, delay: 0.45 + i * 0.12, ease: EASE }}
                 className={`absolute ${p.pos}`}
               >
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
                 >
-                  <Link
-                    href="/login"
-                    data-cur
-                    className={`pointer-events-auto inline-block rounded-xl font-display font-semibold ${p.size} ${p.rotate} ${p.cls}`}
-                  >
+                  <Link href="/login" data-cur className={`pointer-events-auto inline-block rounded-xl font-display font-semibold ${p.size} ${p.rotate} ${p.cls}`}>
                     {p.t}
                   </Link>
                 </motion.div>
