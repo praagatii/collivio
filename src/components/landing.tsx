@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowDown, Star } from "lucide-react";
 import { students } from "@/data/mock";
@@ -81,28 +82,28 @@ function Hero() {
       cls: "bg-sun text-navy",
       rotate: "rotate-2",
       size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
-      pos: "right-0 top-[6%]",
+      pos: "right-[2%] top-[20%]",
     },
     {
       t: "Ideas",
       cls: "bg-coral text-white",
       rotate: "-rotate-2",
       size: "px-5 py-2.5 text-sm sm:text-base",
-      pos: "right-[2%] top-[36%]",
+      pos: "right-[22%] top-[46%]",
     },
     {
       t: "Spaces",
       cls: "bg-lav text-navy",
       rotate: "rotate-1",
       size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
-      pos: "right-[7%] top-[64%]",
+      pos: "right-[1%] top-[66%]",
     },
     {
       t: "Opportunities",
       cls: "bg-pine text-cream",
       rotate: "-rotate-1",
       size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm",
-      pos: "bottom-[4%] right-0",
+      pos: "bottom-[10%] right-[6%]",
     },
   ];
   return (
@@ -186,7 +187,7 @@ function Hero() {
             </p>
           </div>
         </div>
-        <div className="relative mx-auto h-[280px] w-full max-w-[420px] sm:h-[360px] lg:ml-auto lg:h-[420px] lg:max-w-[500px]">
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:-mt-8 lg:mx-auto lg:h-[400px] lg:max-w-[480px]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -756,6 +757,9 @@ function LandingFooter() {
 }
 
 export default function Landing() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="overflow-x-clip bg-cream text-navy">
       <main>
