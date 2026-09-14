@@ -8,9 +8,9 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { X } from "lucide-react";
+import { ArrowRight, Sparkles, X, Loader2 } from "lucide-react";
 
 export type NavKind = "project" | "research" | "profile" | "company" | "default";
 
@@ -43,9 +43,7 @@ const NavCtx = createContext<{
   setPending: (t: NavTarget) => void;
 } | null>(null);
 
-const WallCtx = createContext<{
-  openWall: (target?: string) => void;
-} | null>(null);
+const WallCtx = createContext<{ openWall: (target?: string) => void } | null>(null);
 
 const KEY = "collivio_user";
 
@@ -106,15 +104,39 @@ function NavProvider({ children }: { children: React.ReactNode }) {
 
 function WallProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [target, setTarget] = useState<string | undefined>();
-  const openWall = useCallback((t?: string) => {
-    setTarget(t);
+  const [mode, setMode] = useState<"login" | "signup">("login");
+
+  // Intercept every landing CTA that used to navigate to /login or /signup.
+  // One listener, capture phase => no second nav, no separate page, no leak of
+  // other pages from the landing. Opens the in-place overlay instead.
+  useEffect(() => {
+    const handler = (ev: MouseEvent) => {
+      const a = (ev.target as Element | null)?.closest?.('a[href^="/login"], a[href^="/signup"]');
+      if (!a) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      const href = a.getAttribute("href") ?? "";
+      setMode(href.startsWith("/signup") ? "signup" : "login");
+      setOpen(true);
+    };
+    document.addEventListener("click", handler, true);
+    return () => document.removeEventListener("click", handler, true);
+  }, []);
+
+  const openWall = useCallback((target?: string) => {
+    setMode(target === "signup" ? "signup" : "login");
     setOpen(true);
   }, []);
+
   return (
     <WallCtx.Provider value={{ openWall }}>
       {children}
-      <SignInWall open={open} target={target} onClose={() => setOpen(false)} />
+      <SignInWall
+        open={open}
+        mode={mode}
+        onSwitch={() => setMode((m) => (m === "login" ? "signup" : "login"))}
+        onClose={() => setOpen(false)}
+      />
     </WallCtx.Provider>
   );
 }
@@ -139,17 +161,68 @@ export function useWall() {
 
 function SignInWall({
   open,
-  target,
+  mode,
+  onSwitch,
   onClose,
 }: {
   open: boolean;
-  target?: string;
+  mode: "login" | "signup";
+  onSwitch: () => void;
   onClose: () => void;
 }) {
+  const { signIn } = useAuth();
   const router = useRouter();
-  const pathname = usePathname();
-  const action = target ?? "build";
-  const next = pathname ? `?next=${encodeURIComponent(pathname)}` : "";
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+
+  // ESC closes
+  useEffect(() => {
+    if (!open) return;
+    const k = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", k);
+    return () => document.removeEventListener("keydown", k);
+  }, [open, onClose]);
+
+  // reset transient state each open
+  useEffect(() => {
+    if (open) {
+      setErr("");
+      setPw("");
+    }
+  }, [open, mode]);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    const em = email.trim();
+    if (!/^\S+@\S+\.\S+$/.test(em)) return setErr("Enter a valid email address.");
+    if (pw.length < 6) return setErr("Password must be at least 6 characters.");
+    setBusy(true);
+    setErr("");
+    try {
+      // establish the server session cookie => middleware lets the pillars through
+      await fetch("/api/auth", { method: "POST" });
+      const first = name.trim() || em.split("@")[0];
+      signIn({
+        name: first,
+        firstName: (first.split(" ")[0] || first).replace(/^\w/, (c) => c.toUpperCase()),
+        role: "student",
+        email: em,
+        avatar: "",
+        profileHref: "/profile",
+      });
+      onClose();
+      router.push("/people");
+    } catch {
+      setErr("Something went wrong. Please try again.");
+      setBusy(false);
+    }
+  }
+
   return (
     <AnimatePresence>
       {open && (
@@ -157,65 +230,111 @@ function SignInWall({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[90] grid place-items-center bg-deep/40 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[95] grid place-items-center bg-navy/40 px-5 backdrop-blur-sm"
           onClick={onClose}
         >
           <motion.div
-            initial={{ y: 32, opacity: 0, scale: 0.97 }}
+            initial={{ y: 28, opacity: 0, scale: 0.97 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 20, opacity: 0, scale: 0.98 }}
+            exit={{ y: 18, opacity: 0, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 280, damping: 26 }}
-            className="relative w-full max-w-md border border-line bg-canvas p-8 md:p-10"
             onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md rounded-[1.75rem] border border-pine/10 bg-cream p-8 shadow-[0_24px_80px_-20px_rgba(22,19,14,0.4)] md:p-10"
           >
             <button
               type="button"
               onClick={onClose}
               data-cur
-              className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-line text-ink-soft hover:border-ink hover:text-ink"
               aria-label="Close"
+              className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full border border-pine/15 text-navy/60 transition-colors hover:border-pine hover:text-navy"
             >
               <X size={16} />
             </button>
-            <div className="label flex items-center gap-2 text-accent">
-              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-              TO {action.toUpperCase()}
+
+            {/* logo */}
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-10 w-10 place-items-center rounded-[0.8rem] bg-navy text-cream">
+                <span className="font-display text-lg font-bold">C</span>
+              </span>
+              <span className="font-display text-2xl font-bold tracking-tight text-navy">Collivio</span>
             </div>
-            <h2 className="disp mt-4 text-3xl text-ink">
-              You&apos;re
-              <br /> almost in.
+
+            <h2 className="font-display mt-7 text-3xl font-semibold leading-tight text-navy md:text-4xl">
+              Welcome to<BrWithPeriod />
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              Create a COLLIVIO account to start building. Your profile becomes
-              your application — no forms, no fuss.
+            <p className="mt-2 text-sm text-navy/60">
+              Connect with people, ideas and spaces.
             </p>
-            <div className="mt-6 grid gap-3">
+
+            <form onSubmit={submit} className="mt-7 grid gap-3">
+              {mode === "signup" && (
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full name"
+                  autoComplete="name"
+                  className="w-full rounded-2xl border border-pine/15 bg-white/70 px-4 py-3 text-sm text-navy outline-none transition-colors placeholder:text-navy/40 focus:border-pine"
+                />
+              )}
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Email"
+                autoComplete="email"
+                className="w-full rounded-2xl border border-pine/15 bg-white/70 px-4 py-3 text-sm text-navy outline-none transition-colors placeholder:text-navy/40 focus:border-pine"
+              />
+              <input
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+                type="password"
+                placeholder="Password"
+                autoComplete={mode === "signup" ? "new-password" : "current-password"}
+                className="w-full rounded-2xl border border-pine/15 bg-white/70 px-4 py-3 text-sm text-navy outline-none transition-colors placeholder:text-navy/40 focus:border-pine"
+              />
+
+              {err && <p className="text-xs font-medium text-coral">{err}</p>}
+
               <button
-                type="button"
+                type="submit"
+                disabled={busy}
                 data-cur
-                onClick={() => router.push(`/signup?role=student${next}`)}
-                className="inline-flex items-center justify-center bg-deep px-6 py-3.5 label text-canvas transition-colors hover:bg-ink"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-pine px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-navy disabled:opacity-60"
               >
-                I&apos;M A STUDENT
+                {busy ? <Loader2 size={15} className="animate-spin" /> : <ArrowRight size={15} />}
+                {mode === "login" ? "Log in" : "Create account"}
               </button>
-              <button
-                type="button"
-                data-cur
-                onClick={() => router.push(`/signup?role=company${next}`)}
-                className="inline-flex items-center justify-center border border-accent px-6 py-3.5 label text-accent transition-colors hover:bg-accent hover:text-canvas"
-              >
-                I&apos;M A COMPANY
-              </button>
-            </div>
-            <p className="mt-5 text-center">
-              <Link href={`/login${next}`} data-cur className="label link-line text-ink">
-                ALREADY HAVE AN ACCOUNT? LOG IN →
-              </Link>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-navy/60">
+              {mode === "login" ? (
+                <>
+                  Don&apos;t have an account?{" "}
+                  <button type="button" onClick={onSwitch} data-cur className="font-semibold text-coral hover:text-navy">
+                    Sign up
+                  </button>
+                </>
+              ) : (
+                <>
+                  Already have an account?{" "}
+                  <button type="button" onClick={onSwitch} data-cur className="font-semibold text-coral hover:text-navy">
+                    Log in
+                  </button>
+                </>
+              )}
             </p>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
+  );
+}
+
+function BrWithPeriod() {
+  return (
+    <>
+      <br />
+      Collivio<span className="text-coral">.</span>
+    </>
   );
 }
