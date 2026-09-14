@@ -82,102 +82,114 @@ function Hero() {
     { t: "Spaces", cls: "bg-lav text-navy", rotate: "rotate-1", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "right-[1%] top-[66%]" },
     { t: "Opportunities", cls: "bg-pine text-cream", rotate: "-rotate-1", size: "px-4 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm", pos: "bottom-[10%] right-[6%]" },
   ];
+  const segs = [
+    { d: "M12 26C20 2 32 6 37 66", c: "#f8ce4b" },
+    { d: "M37 66C42 95 54 90 63 30", c: "#f2694e" },
+    { d: "M63 30C70 6 80 12 88 50", c: "#cbb9ea" },
+  ];
+  const nodes = [
+    { t: "People", d: "Find your people." },
+    { t: "Ideas", d: "Turn ideas into real action." },
+    { t: "Spaces", d: "Discover and host spaces." },
+    { t: "Opportunities", d: "Create real impact together." },
+  ];
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden">
-      <div className="relative mx-auto flex w-full max-w-[1240px] flex-1 flex-col px-6 pt-6 md:px-10 lg:px-12">
-        <div className="flex items-center justify-between pt-9 lg:pt-10">
-          <Link href="/" data-cur aria-label="Collivio home" className="block">
-            <img
-              src="/collivio-wordmark.png"
-              alt="Collivio."
-              width={2172}
-              height={724}
-              className="h-auto w-[115px] md:w-[124px]"
-            />
+    <section className="relative flex min-h-[100svh] flex-col overflow-clip">
+      <div className="mx-auto flex w-full max-w-[1240px] items-center justify-between px-6 pt-9 md:px-10 lg:px-12 lg:pt-10">
+        <Link href="/" data-cur aria-label="Collivio home" className="block">
+          <img
+            src="/collivio-wordmark.png"
+            alt="Collivio."
+            width={2172}
+            height={724}
+            className="h-auto w-[115px] md:w-[124px]"
+          />
+        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/login" data-cur className="rounded-full border border-navy/20 px-5 py-2.5 text-sm text-navy transition-colors duration-200 hover:border-navy">
+            Log in
           </Link>
-          <div className="flex items-center gap-3">
-            <Link href="/login" data-cur className="rounded-full border border-navy/20 px-5 py-2.5 text-sm text-navy transition-colors duration-200 hover:border-navy">
-              Log in
-            </Link>
-            <Link href="/login" data-cur className="rounded-full bg-pine px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy">
-              Get Started
-            </Link>
-          </div>
+          <Link href="/login" data-cur className="rounded-full bg-pine px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy">
+            Get Started
+          </Link>
         </div>
-        <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-8 py-8 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-12">
-          <div>
-            <h1
-              className="font-display mt-3 font-semibold text-navy"
-              style={{
-                fontSize: "clamp(2.2rem, min(6.5vw, 11vh), 5.5rem)",
-                lineHeight: 1.02,
-              }}
-            >
-              Tomorrow,
-              <br />
-              Together<span className="text-coral">.</span>
-            </h1>
-            <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
-              A platform that brings people, ideas and spaces together to create
-              opportunities, communities and a more connected tomorrow.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-4">
-              <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full bg-pine px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy">
-                Get Started
-                <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-              <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full border border-pine/30 bg-cream px-7 py-3.5 text-sm text-pine transition-colors duration-200 hover:border-pine">
-                Explore
-                <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
-            </div>
-            <div className="mt-8 flex items-center gap-4">
-              <div className="flex -space-x-3">
-                {students.slice(0, 5).map((s) => (
-                  <img key={s.id} src={s.avatar} alt={s.name} className="h-9 w-9 rounded-full border-2 border-cream object-cover" />
-                ))}
-              </div>
-              <p className="max-w-[16rem] text-xs leading-relaxed text-navy/60">
-                A growing community of creators, learners and doers.
-              </p>
-            </div>
+      </div>
+      <div className="mx-auto grid w-full max-w-[1240px] flex-1 content-center items-center gap-8 px-6 py-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-8">
+        <div>
+          <h1
+            className="font-display mt-3 font-semibold text-navy"
+            style={{
+              fontSize: "clamp(2.6rem, min(8vw, 13vh), 6.5rem)",
+              lineHeight: 1.02,
+            }}
+          >
+            Tomorrow,
+            <br />
+            Together<span className="text-coral">.</span>
+          </h1>
+          <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-navy/65 md:text-lg">
+            A platform that brings people, ideas and spaces together to create
+            opportunities, communities and a more connected tomorrow.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-4">
+            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full bg-pine px-6 py-3 text-sm text-white transition-colors duration-200 hover:bg-navy">
+              Get Started
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+            <Link href="/login" data-cur className="group inline-flex items-center gap-2 rounded-full border border-pine/30 px-6 py-3 text-sm text-pine transition-colors duration-200 hover:border-pine">
+              Explore
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </div>
-          <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:h-[400px] lg:max-w-[480px]">
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="absolute inset-0"
-            >
-              <img
-                src="/collivio-globe.png"
-                alt="Collivio globe illustration with coloured orbits"
-                width={1536}
-                height={1024}
-                fetchPriority="high"
-                className="h-full w-full object-contain lg:-ml-6"
-              />
-            </motion.div>
-            <div className="pointer-events-none absolute inset-0">
-              {pills.map((p, i) => (
-                <motion.div
-                  key={p.t}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.45 + i * 0.12, ease: EASE }}
-                  className={`absolute ${p.pos}`}
-                >
-                  <motion.div
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                  >
-                    <Link href="/login" data-cur className={`pointer-events-auto inline-block rounded-xl font-display font-semibold ${p.size} ${p.rotate} ${p.cls}`}>
-                      {p.t}
-                    </Link>
-                  </motion.div>
-                </motion.div>
+          <div className="mt-8 flex items-center gap-4">
+            <div className="flex -space-x-3">
+              {students.slice(0, 5).map((s) => (
+                <img key={s.id} src={s.avatar} alt={s.name} className="h-9 w-9 rounded-full border-2 border-cream object-cover" />
               ))}
             </div>
+            <p className="max-w-[16rem] text-xs leading-relaxed text-navy/60">
+              A growing community of creators, learners and doers.
+            </p>
+          </div>
+        </div>
+        <div className="relative mx-auto h-[300px] w-full max-w-[420px] sm:h-[360px] lg:order-1 lg:-ml-16 lg:-mt-8 lg:h-[400px] lg:max-w-[480px]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="absolute inset-0 overflow-visible"
+          >
+            <img
+              src="/collivio-globe.png"
+              alt="Collivio globe illustration with coloured orbits"
+              width={1536}
+              height={1024}
+              className="h-full w-full object-contain"
+            />
+          </motion.div>
+          <div className="pointer-events-none absolute inset-0">
+            {pills.map((p, i) => (
+              <motion.div
+                key={p.t}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45 + i * 0.1, ease: EASE }}
+                className={`absolute ${p.pos}`}
+              >
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                >
+                  <Link
+                    href="/login"
+                    data-cur
+                    className={`pointer-events-auto inline-block rounded-xl font-display font-semibold ${p.size} ${p.rotate} ${p.cls}`}
+                  >
+                    {p.t}
+                  </Link>
+                </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
