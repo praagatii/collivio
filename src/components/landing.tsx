@@ -129,7 +129,7 @@ function Hero() {
           <Link
             href="/login"
             data-cur
-            className="rounded-full bg-coral px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
+            className="rounded-full bg-pine px-5 py-2.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
           >
             Get Started
           </Link>
@@ -157,7 +157,7 @@ function Hero() {
             <Link
               href="/login"
               data-cur
-              className="group inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
+              className="group inline-flex items-center gap-2 rounded-full bg-pine px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
             >
               Get Started
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -165,7 +165,7 @@ function Hero() {
             <Link
               href="/login"
               data-cur
-              className="group inline-flex items-center gap-2 rounded-full border border-navy/30 bg-cream px-7 py-3.5 text-sm text-navy transition-colors duration-200 hover:border-navy"
+              className="group inline-flex items-center gap-2 rounded-full border border-pine/30 bg-cream px-7 py-3.5 text-sm text-pine transition-colors duration-200 hover:border-pine"
             >
               Explore
               <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -496,7 +496,7 @@ function Why() {
         <a
           href="/login"
           data-cur
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
+          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-pine px-7 py-3.5 text-sm text-white transition-colors duration-200 hover:bg-navy"
         >
           Our Story
           <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
