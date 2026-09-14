@@ -51,14 +51,22 @@ function BulbGlyph({ className = "" }: { className?: string }) {
   );
 }
 
-function PinGlyph({ className = "" }: { className?: string }) {
+function PinGlyph({
+  body = "#0e6b4e",
+  dot = "#1b1d33",
+  className = "",
+}: {
+  body?: string;
+  dot?: string;
+  className?: string;
+}) {
   return (
     <svg viewBox="0 0 64 56" fill="none" className={className} aria-hidden>
       <path
         d="M32 4C20 4 12 13 12 24c0 14 20 28 20 28s20-14 20-28C52 13 44 4 32 4Z"
-        fill="#0e6b4e"
+        fill={body}
       />
-      <circle cx="32" cy="22" r="7" fill="#1b1d33" />
+      <circle cx="32" cy="22" r="7" fill={dot} />
     </svg>
   );
 }
@@ -122,7 +130,7 @@ function LandingHeader() {
   }, []);
   const links = [
     { href: "#why", label: "About" },
-    { href: "#how", label: "How It Works" },
+    { href: "#how", label: "How it works" },
     { href: "#explore", label: "Explore" },
   ];
   return (
@@ -271,15 +279,15 @@ function Hero() {
           </p>
         </div>
       </div>
-      <div className="relative h-[360px] md:h-[460px]">
+      <div className="relative h-[300px] sm:h-[360px] md:h-[460px]">
         <GlobeArt className="absolute inset-0 h-full w-full" />
-        <div className="absolute right-0 top-4 flex flex-col items-start gap-3 md:-right-2">
+        <div className="absolute right-0 top-2 flex flex-col items-start gap-2 sm:top-4 sm:gap-3 md:-right-2">
           {pills.map((p, i) => (
             <motion.div
               key={p.t}
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
-              className={`rounded-xl px-6 py-3 font-display text-sm font-semibold shadow-none ${p.cls}`}
+              className={`rounded-lg px-4 py-2 font-display text-xs font-semibold sm:rounded-xl sm:px-6 sm:py-3 sm:text-sm ${p.cls}`}
             >
               {p.t}
             </motion.div>
@@ -301,9 +309,16 @@ function BlueBand() {
         aria-hidden
       >
         <path
-          d="M-40 90C120 -30 260 150 420 80S700 -20 860 90S1180 160 1320 60S1460 40 1520 80"
+          d="M-40 80C40 80 60 12 120 12C180 12 180 148 240 148C300 148 320 60 380 44"
           stroke="#f8ce4b"
-          strokeWidth="30"
+          strokeWidth="42"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M1080 -30C1110 50 1180 90 1378 90a62 62 0 1 0 124 0a62 62 0 1 0 -124 0"
+          stroke="#f8ce4b"
+          strokeWidth="42"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />
@@ -383,7 +398,7 @@ function Pillars() {
               data-cur
               className={`group flex min-h-[380px] flex-col rounded-[2rem] p-8 ${c.bg}`}
             >
-              <div className="flex h-28 items-center">{c.glyph}</div>
+              <div className="flex h-28 items-center justify-center">{c.glyph}</div>
               <h3 className="font-display mt-6 text-[1.75rem] font-semibold text-navy">
                 {c.title}
               </h3>
@@ -420,7 +435,7 @@ function Ecosystem() {
       d: "Discover and host spaces.",
       x: 63,
       y: 30,
-      icon: <PinGlyph className="h-10 w-auto" />,
+      icon: <PinGlyph body="#f2694e" className="h-10 w-auto" />,
     },
     {
       t: "Opportunities",
@@ -506,12 +521,12 @@ function Ecosystem() {
           {nodes.map((n) => (
             <div
               key={n.t}
-              className="absolute w-28 -translate-x-1/2 -translate-y-1/2 text-center"
+              className="absolute w-20 -translate-x-1/2 -translate-y-1/2 text-center sm:w-28"
               style={{ left: `${n.x}%`, top: `${n.y}%` }}
             >
               <div className="flex justify-center">{n.icon}</div>
-              <div className="font-display mt-2 text-sm font-semibold text-navy">{n.t}</div>
-              <div className="mt-1 text-[11px] leading-snug text-navy/55">{n.d}</div>
+              <div className="font-display mt-2 text-xs font-semibold text-navy sm:text-sm">{n.t}</div>
+              <div className="mt-1 text-[10px] leading-snug text-navy/55 sm:text-[11px]">{n.d}</div>
             </div>
           ))}
         </div>
@@ -747,7 +762,7 @@ function LandingFooter() {
   return (
     <footer className="bg-cream pb-8 pt-16">
       <div className="mx-auto max-w-[1240px] px-5 md:px-8">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <div className="font-brand text-3xl text-coral">Collivio.</div>
             <p className="mt-3 text-sm text-navy/70">Tomorrow, Together.</p>
@@ -797,7 +812,7 @@ function LandingFooter() {
 
 export default function Landing() {
   return (
-    <div className="bg-cream text-navy">
+    <div className="overflow-x-clip bg-cream text-navy">
       <LandingHeader />
       <main>
         <Hero />
